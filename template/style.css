@@ -1,0 +1,101 @@
+/* Neutral default palette. Replace --accent / --accent-ink with the channel's brand colour (see reference/style.md). */
+:root {
+  --bg: #0b0c0e;
+  --glass: rgba(18, 20, 24, 0.62);
+  --glass-solid: #16181c;
+  --line: rgba(255, 255, 255, 0.1);
+  --ink: #f4f4f1;
+  --ink-2: #bfc3ca;
+  --label: #9198a3;
+  --accent: #3d8bff;
+  --accent-ink: #a8c8ff;
+  --good: #35c27d;
+  --bad: #f0524d;
+  --warn: #f2b53c;
+  --sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --r: 14px;
+}
+body[data-theme="light"] {
+  --bg: #f3f2ee;
+  --glass: rgba(255, 255, 255, 0.78);
+  --glass-solid: #ffffff;
+  --line: rgba(0, 0, 0, 0.09);
+  --ink: #141518;
+  --ink-2: #4a4f57;
+  --label: #6b717b;
+  --accent: #1f6feb;
+  --accent-ink: #1557c0;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; height: 100%; overflow: hidden; background: #000; }
+body { font-family: var(--sans); color: var(--ink); -webkit-font-smoothing: antialiased; }
+
+#stage { position: absolute; left: 0; top: 0; transform-origin: 0 0; overflow: hidden; background: var(--bg); }
+#v { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+#bgLines { position: absolute; inset: 0; opacity: 0.5; }
+
+/* ---------- glass card ---------- */
+.card {
+  position: absolute;
+  background: var(--glass);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 22px 28px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
+  visibility: hidden;
+}
+.card.blur { -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px); }
+.kick { font: 600 20px/1 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--label); display: flex; align-items: center; gap: 10px; }
+.kick::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex: none; }
+.t1 { font: 750 46px/1.08 var(--sans); letter-spacing: -0.01em; color: var(--ink); }
+.t2 { font: 750 46px/1.08 var(--sans); letter-spacing: -0.01em; color: var(--accent-ink); }
+.kick + .t1 { margin-top: 16px; }
+.body { font: 600 32px/1.25 var(--sans); color: var(--ink-2); }
+.u { position: relative; display: inline-block; }
+.u > i { position: absolute; left: 0; right: 0; bottom: -6px; height: 4px; border-radius: 2px; background: var(--accent); transform-origin: 0 50%; transform: scaleX(0); }
+
+/* ---------- keyword card (one big idea, swaps on its word) ---------- */
+#kw { left: 64px; top: 120px; min-width: 520px; }
+#kw .roll { position: relative; height: 112px; margin-top: 16px; overflow: hidden; }
+#kw .roll > div { position: absolute; left: 0; top: 0; }
+
+/* ---------- step list ---------- */
+#steps { left: 64px; top: 120px; width: 620px; }
+#steps .row { overflow: hidden; display: flex; align-items: center; gap: 18px; padding: 16px 0; border-top: 1px solid var(--line); font: 650 34px/1.1 var(--sans); }
+#steps .row:first-of-type { margin-top: 18px; }
+#steps .n { font: 600 20px/1 var(--mono); color: var(--label); width: 34px; }
+
+/* ---------- counter ---------- */
+#counter { right: 64px; top: 120px; width: 460px; }
+#counter .num { font: 800 120px/1 var(--sans); letter-spacing: -0.03em; margin-top: 14px; font-variant-numeric: tabular-nums; }
+#counter .unit { font: 650 30px/1 var(--sans); color: var(--accent-ink); margin-top: 6px; }
+#counter .bar { height: 8px; border-radius: 4px; background: var(--line); margin-top: 22px; overflow: hidden; }
+#counter .bar > i { display: block; height: 100%; width: 100%; background: var(--accent); transform-origin: 0 50%; transform: scaleX(0); }
+
+/* ---------- lower third ---------- */
+#lower { left: 64px; bottom: 72px; padding: 18px 26px 18px 22px; display: flex; gap: 18px; align-items: stretch; }
+#lower .bar { width: 5px; border-radius: 3px; background: var(--accent); }
+#lower .name { font: 750 40px/1.1 var(--sans); }
+#lower .role { font: 600 26px/1.2 var(--sans); color: var(--ink-2); margin-top: 6px; }
+
+/* ---------- chapter chip (cloned per chapter) ---------- */
+.chip { left: 64px; top: 52px; padding: 10px 16px; border-radius: 10px; display: flex; gap: 12px; align-items: center; }
+.chip .no { font: 700 20px/1 var(--mono); color: #fff; background: var(--accent); border-radius: 6px; padding: 6px 8px; }
+.chip .tt { font: 650 24px/1 var(--sans); }
+
+/* ---------- chapter veil (cloned per chapter) ---------- */
+.veil { position: absolute; inset: 0; visibility: hidden; }
+.veil .pane { position: absolute; inset: 0; background: var(--glass-solid); clip-path: inset(0 100% 0 0); }
+.veil .edge { position: absolute; top: 0; bottom: 0; width: 3px; background: var(--accent); left: 0; opacity: 0; }
+.veil .inner { position: absolute; left: 160px; top: 50%; transform: translateY(-50%); width: 1500px; }
+.veil .kick { font-size: 22px; }
+.veil .t1, .veil .t2 { font-size: 84px; }
+.veil .kick + .t1 { margin-top: 28px; }
+.veil .prog { display: flex; gap: 14px; margin-top: 44px; align-items: center; }
+.veil .prog span { font: 600 20px/1 var(--mono); color: var(--label); }
+.veil .prog span.on { color: var(--ink); }
+.veil .prog b { width: 56px; height: 2px; background: var(--line); }
+
+#hud { position: fixed; left: 12px; bottom: 10px; font: 500 12px/1 var(--mono); color: rgba(255, 255, 255, 0.55); z-index: 10; pointer-events: none; }

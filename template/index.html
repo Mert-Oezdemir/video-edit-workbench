@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Scene</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=block&subset=latin,latin-ext" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<!-- data-w / data-h: stage size (1080 x 1920 for a Short). data-theme="light" for the paper look. -->
+<body data-w="1920" data-h="1080">
+  <div id="stage">
+    <svg id="bgLines" width="1920" height="1080" aria-hidden="true"></svg>
+    <video id="v" playsinline preload="auto"></video>
+
+    <!-- keep-out area: the speaker's face (audit.mjs checks that no card covers it). Adjust to your framing. -->
+    <div data-keepout style="position:absolute;left:720px;top:120px;width:560px;height:960px;pointer-events:none"></div>
+
+    <div id="chip" class="chip card" data-box><span class="no">01</span><span class="tt"></span></div>
+
+    <div id="kw" class="card" data-box>
+      <div class="kick">Key idea</div>
+      <div class="roll"></div>
+    </div>
+
+    <div id="steps" class="card" data-box>
+      <div class="kick">Workflow</div>
+    </div>
+
+    <div id="counter" class="card" data-box>
+      <div class="kick">Loudness target</div>
+      <div class="num">0</div>
+      <div class="unit">LUFS</div>
+      <div class="bar"><i></i></div>
+    </div>
+
+    <div id="lower" class="card" data-box>
+      <div class="bar"></div>
+      <div><div class="name">Your Name</div><div class="role">Your role · Your channel</div></div>
+    </div>
+
+    <div id="veil" class="veil">
+      <div class="pane"></div>
+      <div class="edge"></div>
+      <div class="inner">
+        <div class="kick"></div>
+        <div class="t1"></div>
+        <div class="t2"></div>
+        <div class="prog"></div>
+      </div>
+    </div>
+  </div>
+  <div id="hud"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="demo.js"></script>
+  <script src="script.js"></script>
+  <script src="engine.js"></script>
+</body>
+</html>
