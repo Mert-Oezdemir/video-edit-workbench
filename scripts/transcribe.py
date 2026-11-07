@@ -80,7 +80,7 @@ def pick_backend(name):
 _FW = {}
 
 
-def transcribe_arrays(chunks, lang, backend, model):
+def transcribe_arrays(chunks, lang, backend, model, device='cpu'):
     """chunks: list of float32 mono arrays at 16 kHz. Returns a list of (text, [[s, e, word], ...]) per chunk,
     times relative to the chunk start (padding removed)."""
     pad = np.zeros(int(PAD * SR), np.float32)
@@ -96,9 +96,10 @@ def transcribe_arrays(chunks, lang, backend, model):
         res = []
         if backend == 'faster-whisper':
             from faster_whisper import WhisperModel
-            if model not in _FW:
-                _FW[model] = WhisperModel(model, device='auto', compute_type='int8')
-            m = _FW[model]
+            key = (model, device)
+            if key not in _FW:
+                _FW[key] = WhisperModel(model, device=device, compute_type='int8')
+            m = _FW[key]
             for p in paths:
                 segs, _ = m.transcribe(p, language=lang, word_timestamps=True, condition_on_previous_text=False,
                                        vad_filter=False, beam_size=5)
@@ -150,6 +151,8 @@ def main():
     ap.add_argument('--lang', default=None, help='language code (en, tr, de ...); auto-detect if omitted')
     ap.add_argument('--backend', default='auto')
     ap.add_argument('--model', default='large-v3', help='model name or local model folder')
+    ap.add_argument('--device', choices=('cpu', 'cuda', 'auto'), default='cpu',
+                    help='faster-whisper device (CPU works without CUDA libraries)')
     ap.add_argument('--thr', type=float, default=None, help='speech threshold in dB (default: noise floor + 18)')
     a = ap.parse_args()
 
@@ -178,7 +181,7 @@ def main():
         print(f'{cid}: {len(x) / SR:.1f} s, threshold {thr:.1f} dB, {len(chunks)} chunks, backend {backend}')
 
         arrays = [x[int(s * SR):int(e * SR)] for s, e in chunks]
-        res = transcribe_arrays(arrays, a.lang, backend, a.model)
+        res = transcribe_arrays(arrays, a.lang, backend, a.model, a.device)
         utts = []
         for (s, e), (text, words) in zip(chunks, res):
             ws = [[round(w0 + s, 3), round(w1 + s, 3), w] for w0, w1, w in words]

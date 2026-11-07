@@ -4,7 +4,15 @@ This edition builds on [claude-video-edit](https://github.com/YildizDikme/claude
 
 ## Check an edit list before cutting
 
-Run `python scripts/preflight.py --project PATH` after creating `work/edl.json`. The command checks the edit list, confirms referenced media and transcript files, and reports frame ranges that would collapse to zero duration. It exits with status 1 on problems and leaves the project untouched. It requires Python 3.10+ and the standard library. The rest of the pipeline uses the dependencies listed below.
+Run `python scripts/preflight.py --project PATH` after creating `work/edl.json`. The command checks the edit list and confirms referenced media and transcript files. It exits with status 1 on problems and leaves the project untouched. It requires Python 3.10+ and the standard library. The rest of the pipeline uses the dependencies listed below.
+
+## Frame accuracy and transcription devices
+
+Cut ranges round outward to cover the complete requested interval, including a partial final frame. Audio fades are bounded to the length of each piece, including single-frame pieces at high frame rates.
+
+Faster-whisper defaults to CPU so CUDA libraries are optional. Use `--device cuda` or `--device auto` on both `scripts/transcribe.py` and `scripts/verify.py` when your GPU runtime is installed. A small model can be selected with `--model tiny.en` for an English smoke test. The default model is `large-v3`.
+
+Run the regression checks with `python -m unittest discover -s tests -v` after installing NumPy.
 
 ## Upstream workflow
 
@@ -85,7 +93,7 @@ Good edits come from these short review loops. Expect several rounds.
 </tr>
 </table>
 
-Frames from my own videos edited with this skill (Turkish, with English on screen).
+The upstream workflow describes these uses of the editing tools.
 
 ## It remembers you
 
@@ -216,7 +224,7 @@ Tüm videolarınız için bir kural verdiğinizde ("geçişlerde ses olmasın", 
 
 ### Yaratıcı ama amaçlı
 
-Skill, Claude'a süslemeyi değil anlatmayı söyler: soyut fikri çizer, izleyicinin bilmeyebileceği araçlar için küçük bir "bu nedir" kutusu gösterir, videonun kendi ölçülmüş verisini ve sizin gerçek ekran görüntülerinizi kullanır, hataları gerçek önce/sonra haliyle gösterir. Video anlamına göre bölümlere ayrılır, başlıklar izleyicinin ne öğreneceğini söyler. Yukarıdaki görseller bu skill ile editlenmiş kendi videolarımdan.
+Skill, Claude'a süslemeyi değil anlatmayı söyler: soyut fikri çizer, izleyicinin bilmeyebileceği araçlar için küçük bir "bu nedir" kutusu gösterir, videonun kendi ölçülmüş verisini ve sizin gerçek ekran görüntülerinizi kullanır, hataları gerçek önce/sonra haliyle gösterir. Video anlamına göre bölümlere ayrılır, başlıklar izleyicinin ne öğreneceğini söyler.
 
 Geçişler şablonun içinde: kesimden önce kapanan kısa bölüm perdesi, araya giren videolar ve kesitler için yazılı perde, görüntünün sıçradığı yerde bulanık geçiş, konunun değiştiği kesimde kararan bulanık geçiş ve sakin bir veda ekranı. Varsayılan olarak geçişlerde ses yoktur.
 

@@ -45,6 +45,7 @@ def main():
     ap.add_argument('--lang', default=None)
     ap.add_argument('--backend', default='auto')
     ap.add_argument('--model', default='large-v3')
+    ap.add_argument('--device', choices=('cpu', 'cuda', 'auto'), default='cpu')
     ap.add_argument('--window', type=float, default=1.6)
     ap.add_argument('--all', action='store_true', help='print every join, not only flagged ones')
     a = ap.parse_args()
@@ -82,7 +83,7 @@ def main():
     wins = [x[int(max(0, t - a.window) * SR):int((t + a.window) * SR)] for t in joins]
     backend = pick_backend(a.backend)
     print(f'{len(joins)} joins, transcribing windows with {backend} ...')
-    res = transcribe_arrays(wins, a.lang, backend, a.model) if wins else []
+    res = transcribe_arrays(wins, a.lang, backend, a.model, a.device) if wins else []
 
     lines, flagged = [], 0
     for k, (t, (text, words)) in enumerate(zip(joins, res)):

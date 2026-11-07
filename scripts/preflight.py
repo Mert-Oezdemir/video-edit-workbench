@@ -115,8 +115,6 @@ def inspect_edl(root):
                 problems.append(f"{label} must give either a two-value range or an utterance selector.")
             elif not all(seconds(part) for part in bounds) or bounds[0] >= bounds[1]:
                 problems.append(f"{label} range needs two increasing, nonnegative times.")
-            elif fps is not None and int(bounds[0] * fps) == int(bounds[1] * fps):
-                problems.append(f"{label} range rounds to zero frames at {fps} fps.")
             continue
         selected = utterances(item.get("utt"))
         if selected is None:

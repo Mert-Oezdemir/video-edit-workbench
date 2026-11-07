@@ -46,8 +46,8 @@ def build_audio(root, work, prog, a):
         x = cache[cid][s0:s1].copy()
         if len(x) < s1 - s0:
             x = np.vstack([x, np.zeros((s1 - s0 - len(x), 2), np.float32)])
-        fi = int(FADE_IN * SR)
-        fo = int(p.get('fade_out', FADE_OUT) * SR)
+        fi = min(len(x), int(FADE_IN * SR))
+        fo = min(len(x), int(p.get('fade_out', FADE_OUT) * SR))
         x[:fi] *= np.linspace(0, 1, fi, dtype=np.float32)[:, None]
         x[-fo:] *= np.linspace(1, 0, fo, dtype=np.float32)[:, None]
         parts.append(x)

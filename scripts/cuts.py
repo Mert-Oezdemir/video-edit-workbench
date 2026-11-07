@@ -13,6 +13,7 @@ usage:
   python3 scripts/cuts.py --project . --peek CLIP A B    # print the envelope between A and B seconds (finding cut points)
 """
 import argparse
+import math
 import os
 import sys
 
@@ -113,7 +114,7 @@ def build(project):
         c = C(cid)
         if 'range' in item:
             a, b = item['range']
-            af, bf = int(a * fps), -int(-b * fps)
+            af, bf = math.floor(a * fps), math.ceil(b * fps)
             pieces.append({'clip': cid, 'a': af, 'b': bf, 'p': pf, 'e': len(entries)})
             entries.append({'clip': cid, 'range': [a, b], 'pieces': [len(pieces) - 1], 'text': ''})
             pf += bf - af
@@ -151,7 +152,7 @@ def build(project):
             ns = min([x for x, y in sp if x >= b - 1e-6] or [1e9])
             a2 = a - 0.02 if (j == 0 and cutS) else max(a - pace['head'], pe + 0.04, (a + pe) / 2)
             b2 = b + 0.02 if (j == len(merged) - 1 and cutE) else min(b + pace['tail'], ns - 0.04, (b + ns) / 2)
-            af, bf = int(max(0.0, a2) * fps), -int(-b2 * fps)
+            af, bf = math.floor(max(0.0, a2) * fps), math.ceil(b2 * fps)
             if bf <= af:
                 continue
             p = {'clip': cid, 'a': af, 'b': bf, 'p': pf, 'e': len(entries)}
