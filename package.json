@@ -1,0 +1,18 @@
+{
+  "name": "video-edit-workbench",
+  "version": "1.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node agent.mjs serve",
+    "mcp": "node agent.mjs mcp",
+    "mcp:config": "node agent.mjs config",
+    "doctor": "node agent.mjs doctor"
+  },
+  "dependencies": {
+    "@mert/project-agent-bridge": "https://codeload.github.com/Mert-Oezdemir/project-agent-bridge/tar.gz/e69ab56d6f0f3accda8e0fcf337048e42a9aa365"
+  }
+}
