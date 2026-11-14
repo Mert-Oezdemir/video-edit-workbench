@@ -105,6 +105,8 @@ Gelişmiş araçlar bu PR'da kurulmadı. Modelden bağımsız şablon ve FFmpeg
 yolu ek bağımlılıkları düşük tutmak için önce seçildi. AI'nın her video
 için yeniden animasyon kodu üretmesine gerek yok.
 
+For a broader list and installation decision rules see [tool-catalog.md](tool-catalog.md). The agent may choose an optional tool on demand; no default installation is required.
+
 ## Test
 
 ```sh
