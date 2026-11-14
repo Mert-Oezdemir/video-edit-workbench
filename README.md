@@ -2,6 +2,12 @@
 
 This edition builds on [claude-video-edit](https://github.com/YildizDikme/claude-video-edit) by YildizDikme, commit `b7093e25373271cc33475958fe7d850a71da4223`. The upstream copyright notice and MIT license are in [LICENSE](LICENSE). The upstream example photos are omitted. The HTML template references Google Fonts and GSAP at runtime, and the repository does not bundle those dependencies.
 
+## Lightweight first / Önce hafif kurgu
+
+The recommended default is Python + NumPy + FFmpeg/FFprobe + one local Whisper backend. Use one optional planner and one compact decision packet. No additional Python or Node dependencies are introduced by the low-token and creative scripts. A plain preview does not require Node, Chrome, MCP, GPU, multiple agents or an AI API. For an approved plain final use the existing source-resolution build and mix.py --no-sfx. Captions and simple cards are opt-in, using FFmpeg with libass. Visual QA, complex graphics, effects and the browser renderer are opt-in. Do not install Blender, Remotion, MediaPipe or other suggested tools by default.
+
+**Türkçe:** Transkript → tek isteğe bağlı AI kararı → kesim/önizleme → onay → çıktı. Ek özellikler yalnızca gerektiğinde çalıştırılır.
+
 ## Provider-neutral low-token editing / Modelden bağımsız düşük tokenli kurgu
 
 The optional [low-token workflow (Türkçe guide)](reference/low-token.md) passes compact transcript IDs to any planner, including Claude, Codex, another chat model, a compatible cloud/local API, or no AI at all. Existing Python/FFmpeg cutting, verification, graphics and rendering stay local. Start with `scripts/low_token.py` and `scripts/plan_provider.py`; review the proposed removals before applying them. No provider is required.
