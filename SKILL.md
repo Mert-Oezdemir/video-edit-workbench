@@ -11,6 +11,10 @@ This skill turns raw footage into a finished edit together with a human editor. 
 
 For low-token requests, use [reference/low-token.md](reference/low-token.md). Run the existing local transcription, then `scripts/low_token.py prepare` and read only the compact packet; return a JSON object with the packet revision and the IDs of clearly superseded utterances to drop. Do not rewrite media tools or inspect full word timings unless needed for a specific correction. The planner can be any model or a human; `plan_provider.py` is optional. Review the proposed removals with the user before `apply` and `preview`. Later chapters, graphics, effects and final render still follow the existing workflow.
 
+## Optional low-token creative tools
+
+After a reviewed rough cut, use [reference/creative-tools.md](reference/creative-tools.md) for local captions, sparse reusable cards anchored to actual program words, and visual review hints. For simple graphics use the declarative brief/plan instead of writing custom HTML. The existing advanced scene engine is still available for bespoke diagrams, 3D and 4K. Review face clearance, text, timing and sound before final output. Do not automatically remove any flagged frames.
+
 ## Read first: what you can and cannot do
 
 - **You cannot hear.** You never listen to audio. Everything you know about sound comes from numbers: Whisper word timestamps, a 10 ms energy envelope, loudness meters, spectrograms. Say this to the user plainly and never claim that something "sounds good".
