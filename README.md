@@ -6,6 +6,10 @@ This edition builds on [claude-video-edit](https://github.com/YildizDikme/claude
 
 The optional [low-token workflow (Türkçe guide)](reference/low-token.md) passes compact transcript IDs to any planner, including Claude, Codex, another chat model, a compatible cloud/local API, or no AI at all. Existing Python/FFmpeg cutting, verification, graphics and rendering stay local. Start with `scripts/low_token.py` and `scripts/plan_provider.py`; review the proposed removals before applying them. No provider is required.
 
+## Creative editing tools / Yaratıcı kurgu araçları
+
+The optional [creative tools guide (Türkçe)](reference/creative-tools.md) adds local SRT/ASS captions, word-anchored reusable motion-text cards, 1080p portrait/landscape presets, FFmpeg overlay rendering and a non-destructive visual quality report. The existing GSAP/Three.js scene and 4K render remain available. No model is required for captions or QC.
+
 ## Check an edit list before cutting
 
 Run `python scripts/preflight.py --project PATH` after creating `work/edl.json`. The command checks the edit list and confirms referenced media and transcript files. It exits with status 1 on problems and leaves the project untouched. It requires Python 3.10+ and the standard library. The rest of the pipeline uses the dependencies listed below.
