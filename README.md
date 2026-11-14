@@ -2,6 +2,10 @@
 
 This edition builds on [claude-video-edit](https://github.com/YildizDikme/claude-video-edit) by YildizDikme, commit `b7093e25373271cc33475958fe7d850a71da4223`. The upstream copyright notice and MIT license are in [LICENSE](LICENSE). The upstream example photos are omitted. The HTML template references Google Fonts and GSAP at runtime, and the repository does not bundle those dependencies.
 
+## Provider-neutral low-token editing / Modelden bağımsız düşük tokenli kurgu
+
+The optional [low-token workflow (Türkçe guide)](reference/low-token.md) passes compact transcript IDs to any planner, including Claude, Codex, another chat model, a compatible cloud/local API, or no AI at all. Existing Python/FFmpeg cutting, verification, graphics and rendering stay local. Start with `scripts/low_token.py` and `scripts/plan_provider.py`; review the proposed removals before applying them. No provider is required.
+
 ## Check an edit list before cutting
 
 Run `python scripts/preflight.py --project PATH` after creating `work/edl.json`. The command checks the edit list and confirms referenced media and transcript files. It exits with status 1 on problems and leaves the project untouched. It requires Python 3.10+ and the standard library. The rest of the pipeline uses the dependencies listed below.
