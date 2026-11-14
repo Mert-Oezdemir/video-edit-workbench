@@ -5,6 +5,8 @@ kod yazdırmadan altyazı ve animasyonlu metin kartları oluşturur; daha karma�
 grafikler mevcut tarayıcı motorunda yapılabilir. Her iki yol da aynı
 `work/program.json` zaman çizelgesini kullanır.
 
+**Hafif varsayılan:** Bu adımlar zorunlu değildir. Önce sade kurgu ve önizlemeyi tamamla. Altyazı/kart, görsel tarama veya tarayıcı render yalnızca gerektiğinde çalıştırılır. Ek Python betikleri standart kütüphaneyi kullanır; mevcut FFmpeg dağıtımındaki libass gömülü yazılar için gerekir. Yeni ağır bağımlılık veya servis kurma.
+
 ## 1. Otomatik altyazı
 
 Önce kaba kurguyu oluştur ve onayla. Komutlardaki SKILL, bu deponun gerçek
