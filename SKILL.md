@@ -7,6 +7,26 @@ description: Edit talking-head, tutorial, explainer and Short videos with Claude
 
 This skill turns raw footage into a finished edit together with a human editor. Read this whole file before touching a project. Then read `reference/audio.md` before any cut or level change, and `reference/style.md` before any graphics.
 
+## Mandatory first step: editorial intake
+
+Before editing, optional installations or rendering, follow [reference/editorial-intake.md](reference/editorial-intake.md). Inspect the supplied content and requirements, determine the intended message and useful options, and agree on the plan. Ask whether to research current sources or include any new user-provided material unless already answered. Local transcription for understanding is allowed before this conversation. Consolidate this with the existing creator/project questions; never repeat answered questions. Keep original content intact unless substantive additions or corrections are authorized. This step applies to every mode, including the lightweight workflow.
+
+## Default: lightweight, no unnecessary dependencies
+
+This rule takes precedence over the longer creative workflow below unless the user requests advanced production. Prefer a single planner (or keep-all if no AI is wanted), the compact rough-cut mode, and existing local transcription/cut/build/verify commands. Do not spawn subagents, start an MCP/server, install extra libraries, generate custom motion code, or run visual scans by default. Use only the existing Python/NumPy/FFmpeg/FFprobe and one selected Whisper backend. Reuse measurements and avoid dumping full word timings or process logs into the model. Return the first proxy and a short review report, then stop for approval. For an approved plain final use the existing source-resolution build and mix.py --no-sfx. Offer captions or sparse reusable cards only when useful/requested. Advanced graphics and additional model calls are opt-in. No AI API is required.
+
+## On-demand tools: choose and install only when useful
+
+If the existing lightweight pipeline cannot achieve a concrete effect or analysis, read [reference/tool-catalog.md](reference/tool-catalog.md). You may select and install the smallest justified optional tool for the current job without asking the user to choose the tool, subject to host permissions and the catalog's installation, privacy and cost limits. Do not install the catalog by default. Test a short sample, record the choice, and keep the existing engine.
+
+## Optional provider-neutral rough-cut mode
+
+For low-token requests, use [reference/low-token.md](reference/low-token.md). Run the existing local transcription, then `scripts/low_token.py prepare` and read only the compact packet; return a JSON object with the packet revision and the IDs of clearly superseded utterances to drop. Do not rewrite media tools or inspect full word timings unless needed for a specific correction. The planner can be any model or a human; `plan_provider.py` is optional. Review the proposed removals with the user before `apply` and `preview`. Later chapters, graphics, effects and final render still follow the existing workflow.
+
+## Optional low-token creative tools
+
+After a reviewed rough cut, use [reference/creative-tools.md](reference/creative-tools.md) for local captions, sparse reusable cards anchored to actual program words, and visual review hints. For simple graphics use the declarative brief/plan instead of writing custom HTML. The existing advanced scene engine is still available for bespoke diagrams, 3D and 4K. Review face clearance, text, timing and sound before final output. Do not automatically remove any flagged frames.
+
 ## Read first: what you can and cannot do
 
 - **You cannot hear.** You never listen to audio. Everything you know about sound comes from numbers: Whisper word timestamps, a 10 ms energy envelope, loudness meters, spectrograms. Say this to the user plainly and never claim that something "sounds good".

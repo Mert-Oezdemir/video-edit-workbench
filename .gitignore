@@ -10,3 +10,18 @@ node_modules/
 !.env.example
 .bridge/
 workspace/
+
+# Local project media, Python environment and private credentials
+.venv/
+venv/
+src/
+*.mp4
+*.mov
+*.mkv
+*.webm
+*.wav
+*.mp3
+*.m4a
+*.flac
+*.npy
+*.srt
