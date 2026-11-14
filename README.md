@@ -22,6 +22,28 @@ The optional [low-token workflow (Türkçe guide)](reference/low-token.md) passe
 
 The optional [creative tools guide (Türkçe)](reference/creative-tools.md) adds local SRT/ASS captions, word-anchored reusable motion-text cards, 1080p portrait/landscape presets, FFmpeg overlay rendering and a non-destructive visual quality report. The existing GSAP/Three.js scene and 4K render remain available. No model is required for captions or QC.
 
+## Quick start — lightweight (no server, no API key)
+
+Clone this public repository, install Python 3.10+ and FFmpeg/FFprobe for your OS from their official sources, then run:
+
+```sh
+git clone https://github.com/Mert-Oezdemir/video-edit-workbench.git
+cd video-edit-workbench
+python -m venv .venv
+```
+
+Activate the environment (macOS/Linux: `source .venv/bin/activate`; Windows PowerShell: `.venv\Scripts\Activate.ps1`). Install one local transcription backend:
+
+```sh
+python -m pip install -r requirements.txt faster-whisper
+python scripts/doctor.py
+```
+
+Use a separate working folder for your video. Put recordings in its `src/` directory. Tell any tool-capable coding agent to read this repository's `AGENTS.md` and edit that folder. It should follow the editorial intake, then use the [compact workflow](reference/low-token.md). The first Whisper run may download model weights; select a smaller multilingual model such as `small` on modest hardware, and use the same model during verification. The AI provider is optional.
+
+For manual CLI use, see the [step-by-step workflow](reference/low-token.md); substitute the actual path to this repository for SKILL. For captions/cards see [creative tools](reference/creative-tools.md). Node, Chrome and the local MCP bridge are optional advanced features, not requirements for a plain edit. Never commit private recordings, transcripts, API keys or output files.
+
+
 ## Check an edit list before cutting
 
 Run `python scripts/preflight.py --project PATH` after creating `work/edl.json`. The command checks the edit list and confirms referenced media and transcript files. It exits with status 1 on problems and leaves the project untouched. It requires Python 3.10+ and the standard library. The rest of the pipeline uses the dependencies listed below.
@@ -44,9 +66,9 @@ A Claude Code skill that edits talking-head, tutorial, explainer and Short video
 
 [Türkçe açıklama aşağıda](#türkçe).
 
-## Quick start
+## Advanced browser workflow (original skill)
 
-**1. Install the tools once.** Python 3.10+, ffmpeg, Node 20+, Google Chrome, and one Whisper backend.
+**1. Install the optional browser tools.** Python 3.10+, ffmpeg, Node 20+, Google Chrome, and one Whisper backend.
 
 macOS (Apple Silicon, with [Homebrew](https://brew.sh)):
 
@@ -188,9 +210,9 @@ Konuşma, eğitim, ekran kaydı ve Short videolarını sizinle birlikte editleye
 > **Bu repo iyi edit yapmayı mümkün kılıyor, sizin yerinize yapmıyor.**
 > Asıl güç hâlâ sizde: gözünüz, notlarınız, zevkiniz. Claude hızlı keser, ölçer ve kurar; siz izler, not verir ve karar verirsiniz.
 
-### Hızlı başlangıç
+### Gelişmiş tarayıcı iş akışı (orijinal skill)
 
-**1. Araçları bir kez kurun.** Python 3.10+, ffmpeg, Node 20+, Google Chrome ve bir Whisper.
+**1. İsteğe bağlı tarayıcı araçlarını kurun.** Python 3.10+, ffmpeg, Node 20+, Google Chrome ve bir Whisper.
 
 macOS (Apple Silicon, [Homebrew](https://brew.sh) ile):
 
