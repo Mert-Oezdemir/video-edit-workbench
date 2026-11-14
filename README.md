@@ -8,6 +8,8 @@ The recommended default is Python + NumPy + FFmpeg/FFprobe + one local Whisper b
 
 **Türkçe:** Transkript → tek isteğe bağlı AI kararı → kesim/önizleme → onay → çıktı. Ek özellikler yalnızca gerektiğinde çalıştırılır.
 
+Tool-capable AI agents can consult [the on-demand tool catalog](reference/tool-catalog.md) and install individual optional tools when a specific job needs them. The catalog is not a dependency list. See [AGENTS.md](AGENTS.md) for provider-neutral agent instructions.
+
 ## Provider-neutral low-token editing / Modelden bağımsız düşük tokenli kurgu
 
 The optional [low-token workflow (Türkçe guide)](reference/low-token.md) passes compact transcript IDs to any planner, including Claude, Codex, another chat model, a compatible cloud/local API, or no AI at all. Existing Python/FFmpeg cutting, verification, graphics and rendering stay local. Start with `scripts/low_token.py` and `scripts/plan_provider.py`; review the proposed removals before applying them. No provider is required.
