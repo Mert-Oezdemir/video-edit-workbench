@@ -3,6 +3,11 @@
 Any coding or tool-capable AI can use this repository. The editing engine is
 provider-neutral; no Claude dependency or mandatory paid API.
 
+- Before editing any new video, follow reference/editorial-intake.md: inspect
+  the topic, requirements, supplied material and available options; summarize
+  the plan and ask once about current-source research and user-provided additions
+  unless already answered. Do not change factual content without authorization.
+
 - Default to Python + NumPy + FFmpeg/FFprobe + one local Whisper backend.
 - Read reference/low-token.md for the compact planning contract. Run existing
   scripts instead of rewriting them. Keep verbose logs out of model context.
