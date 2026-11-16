@@ -6,6 +6,12 @@ This edition builds on [claude-video-edit](https://github.com/YildizDikme/claude
 
 For each new video the host agent follows [editorial intake](reference/editorial-intake.md): inspect the topic, footage and requirements, agree on a concise plan, ask about current-source research and new user-supplied material, and get authorization for substantive content changes. No new runtime dependency is needed.
 
+## Choose a production route / Üretim yolunu seç
+
+The [agent production guide](reference/production-routes.md) maps raw footage, product launches, reference breakdowns, scripted motion and delivery tasks to a workflow. It covers 16 optional upstream projects and explains when to use each one, what to review first and how to bring its output back into an edit.
+
+Use the [upstream resource inventory](reference/upstream-inventory.md) to find a specific skill, card, template, example, script or other tracked resource in the 16 project snapshots.
+
 ## Lightweight first / Önce hafif kurgu
 
 The recommended default is Python + NumPy + FFmpeg/FFprobe + one local Whisper backend. Use one optional planner and one compact decision packet. No additional Python or Node dependencies are introduced by the low-token and creative scripts. A plain preview does not require Node, Chrome, MCP, GPU, multiple agents or an AI API. For an approved plain final use the existing source-resolution build and mix.py --no-sfx. Captions and simple cards are opt-in, using FFmpeg with libass. Visual QA, complex graphics, effects and the browser renderer are opt-in. Do not install Blender, Remotion, MediaPipe or other suggested tools by default.
