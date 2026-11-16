@@ -7,6 +7,9 @@ and install a suitable optional tool during a specific job when the existing
 engine is insufficient. A chat-only model cannot install anything; its host
 agent or the user must execute the operation.
 
+For task-specific workflows and the 16 upstream video projects, consult
+[production routes](production-routes.md).
+
 ## Decision protocol
 
 1. Identify the intended visual/audio improvement and whether the existing

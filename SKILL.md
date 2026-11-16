@@ -15,6 +15,12 @@ Before editing, optional installations or rendering, follow [reference/editorial
 
 This rule takes precedence over the longer creative workflow below unless the user requests advanced production. Prefer a single planner (or keep-all if no AI is wanted), the compact rough-cut mode, and existing local transcription/cut/build/verify commands. Do not spawn subagents, start an MCP/server, install extra libraries, generate custom motion code, or run visual scans by default. Use only the existing Python/NumPy/FFmpeg/FFprobe and one selected Whisper backend. Reuse measurements and avoid dumping full word timings or process logs into the model. Return the first proxy and a short review report, then stop for approval. For an approved plain final use the existing source-resolution build and mix.py --no-sfx. Offer captions or sparse reusable cards only when useful/requested. Advanced graphics and additional model calls are opt-in. No AI API is required.
 
+## Select a route for advanced or non-footage briefs
+
+Use the [production routes](reference/production-routes.md) for a product launch,
+reference breakdown, scripted motion or specialized edit. Follow the selected
+route's review and handoff steps before rendering.
+
 ## On-demand tools: choose and install only when useful
 
 If the existing lightweight pipeline cannot achieve a concrete effect or analysis, read [reference/tool-catalog.md](reference/tool-catalog.md). You may select and install the smallest justified optional tool for the current job without asking the user to choose the tool, subject to host permissions and the catalog's installation, privacy and cost limits. Do not install the catalog by default. Test a short sample, record the choice, and keep the existing engine.

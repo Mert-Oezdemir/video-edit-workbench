@@ -8,6 +8,10 @@ provider-neutral; no Claude dependency or mandatory paid API.
   the plan and ask once about current-source research and user-provided additions
   unless already answered. Do not change factual content without authorization.
 
+- Match the brief to the [production routes](reference/production-routes.md)
+  before selecting tools. Use the route's review artifact, upstream selection
+  cues and handoff checks. A plain talking-head edit can go straight to the
+  lightweight workflow.
 - Default to Python + NumPy + FFmpeg/FFprobe + one local Whisper backend.
 - Read reference/low-token.md for the compact planning contract. Run existing
   scripts instead of rewriting them. Keep verbose logs out of model context.
