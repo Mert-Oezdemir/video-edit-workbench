@@ -2,6 +2,8 @@
 
 Start with [editorial intake](editorial-intake.md). Identify the available material, the intended audience and the deliverable. Pick a primary route below and add only the steps that solve an actual need. In `work/NOTES.md`, record the route, the planned outputs, evidence for any product claims and the next review artifact. A project can use a route's editorial method with the Workbench's existing tools.
 
+After choosing a route, use the [upstream resource inventory](upstream-inventory.md) to identify exact source files, reusable components and examples.
+
 ## Pick by input and output
 
 | Input and desired output | Production order | First review artifact |

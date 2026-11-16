@@ -12,6 +12,7 @@ provider-neutral; no Claude dependency or mandatory paid API.
   before selecting tools. Use the route's review artifact, upstream selection
   cues and handoff checks. A plain talking-head edit can go straight to the
   lightweight workflow.
+- If the route needs an upstream component, use the [resource inventory](reference/upstream-inventory.md) to look up exact files and review them at the pinned revision.
 - Default to Python + NumPy + FFmpeg/FFprobe + one local Whisper backend.
 - Read reference/low-token.md for the compact planning contract. Run existing
   scripts instead of rewriting them. Keep verbose logs out of model context.

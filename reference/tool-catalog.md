@@ -10,6 +10,8 @@ agent or the user must execute the operation.
 For task-specific workflows and the 16 upstream video projects, consult
 [production routes](production-routes.md).
 
+The [upstream resource inventory](upstream-inventory.md) maps these projects to specific resources and pins the source revisions.
+
 ## Decision protocol
 
 1. Identify the intended visual/audio improvement and whether the existing

@@ -19,7 +19,9 @@ This rule takes precedence over the longer creative workflow below unless the us
 
 Use the [production routes](reference/production-routes.md) for a product launch,
 reference breakdown, scripted motion or specialized edit. Follow the selected
-route's review and handoff steps before rendering.
+route's review and handoff steps before rendering. For a specific upstream
+card, template, animation or script, consult the
+[resource inventory](reference/upstream-inventory.md) before selecting it.
 
 ## On-demand tools: choose and install only when useful
 
