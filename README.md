@@ -22,6 +22,19 @@ The optional [low-token workflow (Türkçe guide)](reference/low-token.md) passe
 
 The optional [creative tools guide (Türkçe)](reference/creative-tools.md) adds local SRT/ASS captions, word-anchored reusable motion-text cards, 1080p portrait/landscape presets, FFmpeg overlay rendering and a non-destructive visual quality report. The existing GSAP/Three.js scene and 4K render remain available. No model is required for captions or QC.
 
+## Ücretsiz video araçları / 3 modes (on demand)
+
+For long YouTube/stream recordings → Shorts, original faceless AI-assisted Shorts and editing your own footage, see the [complete free-first stack](reference/free-video-tool-stack.md) and its [machine-readable registry](reference/video-tool-registry.json). The inventory includes **all 13 free-code/local options discussed** (FFmpeg, Faster Whisper, FFmpeg Skill, Auto-Editor, Claude Shorts, Ghost Editor, OpenMontage, rea-video, HyperFrames, Remotion, Piper TTS, ComfyUI and Higgsfield Skills), with provider and licensing caveats.
+
+```sh
+python scripts/video_tool_stack.py list
+python scripts/video_tool_stack.py doctor --mode long-to-shorts
+python scripts/video_tool_stack.py plan --mode faceless
+python scripts/video_tool_stack.py plan --mode own-footage
+```
+
+This is a **read-only, provider-neutral planner**: tools are not silently installed, media is not uploaded, and no paid model/credit or cloud render is called. Higgsfield provider generation is explicitly blocked in zero-extra-spend mode; HyperFrames Pro, Remotion license limits, OpenMontage paid adapters and the archived Piper link are documented. **These are optional integration recipes/handoffs, not preinstalled end-to-end pipelines.** The existing lightweight FFmpeg/Whisper editor remains the default.
+
 ## Quick start — lightweight (no server, no API key)
 
 Clone this public repository, install Python 3.10+ and FFmpeg/FFprobe for your OS from their official sources, then run:
