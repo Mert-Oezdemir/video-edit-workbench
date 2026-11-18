@@ -7,6 +7,20 @@ and install a suitable optional tool during a specific job when the existing
 engine is insufficient. A chat-only model cannot install anything; its host
 agent or the user must execute the operation.
 
+## Conversation's complete free-first video stack
+
+The 13 free-code/local video tools discussed with the user, the three requested
+production modes, optional interoperability, price traps and direct upstream
+links are in [free-video-tool-stack.md](free-video-tool-stack.md). Their structured
+safety/compatibility inventory is [video-tool-registry.json](video-tool-registry.json);
+`python scripts/video_tool_stack.py list` and
+`python scripts/video_tool_stack.py plan --mode faceless` are **read-only**.
+This does not mean the tools have been installed or integrated end-to-end.
+In particular, Higgsfield Skills are free code but hosted Higgsfield usage can
+cost credits; OpenMontage can call paid providers; HyperFrames Pro features and
+Remotion licensing are separate; the linked Piper repo is archived.
+Only use tools that satisfy the project's zero-extra-spend restriction.
+
 ## Decision protocol
 
 1. Identify the intended visual/audio improvement and whether the existing
