@@ -1,0 +1,11 @@
+1
+00:00:00,000 --> 00:00:01,700
+Bu örnek yalnızca zamanlama göstermek için hazırlanmıştır.
+
+2
+00:00:01,700 --> 00:00:03,400
+Kendi videonuzun doğru altyazısını kullanın.
+
+3
+00:00:03,400 --> 00:00:05,000
+Kesimleri yayınlamadan önce mutlaka kontrol edin.
