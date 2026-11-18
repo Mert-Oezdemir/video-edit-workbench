@@ -91,6 +91,33 @@ Create `work/` before requesting an output file. An existing plan is *never over
 
 Do not copy a command from this table and run it without the safety checks in [tool-catalog.md](tool-catalog.md). Never treat a package install as equivalent to a working end-to-end integration.
 
+## Verified local-file handoff (works without an AI provider)
+
+For a local output produced by any optional tool, register the existing file
+without importing it into the edit list or overwriting anything:
+
+```sh
+# If HyperFrames produced work/external/hyperframes/clip.mp4:
+python scripts/external_handoff.py --project PATH_TO_PROJECT \
+  --tool hyperframes --mode faceless --kind rendered-video \
+  --asset work/external/hyperframes/clip.mp4 \
+  --out work/handoffs/hyperframes-clip.json
+
+# If rea-video produced a reference analysis report:
+python scripts/external_handoff.py --project PATH_TO_PROJECT \
+  --tool rea-video --mode faceless --kind reference-report \
+  --asset work/reference/VIDEO.md \
+  --out work/handoffs/rea-video-analysis.json
+```
+
+The file must already exist *inside the project*. Video handoffs call only
+local `ffprobe` to check that a video stream is present and record codec,
+resolution and duration; reference reports, images and audio are metadata
+registrations, not content verification. Manifests are **new files only**,
+marked `pending-human-review` and `approved: false`. No EDL, program,
+video, source, API or model is changed. Do not claim the upstream renderer
+has been executed or integrated end-to-end merely because the handoff exists.
+
 ## Manual interoperability contract
 
 - **Input:** absolute or project-relative local paths, a requested mode, creator style/target format, explicit rights/permissions and a reviewed work plan. A URL alone does not imply download consent or copyright clearance.
