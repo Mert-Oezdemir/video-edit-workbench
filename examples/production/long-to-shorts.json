@@ -1,0 +1,7 @@
+{
+  "schema_version": 1,
+  "mode": "long-to-shorts",
+  "framing": "fit",
+  "segments": [{"source": "src/recording.mp4", "start": 30, "duration": 20}],
+  "captions": [{"start": 0, "end": 3, "text": "Kendi transkriptinle değiştir."}]
+}

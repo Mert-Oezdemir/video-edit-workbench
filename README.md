@@ -40,6 +40,33 @@ does not automatically edit the timeline or execute external repositories.
 
 This is a **read-only, provider-neutral planner**: tools are not silently installed, media is not uploaded, and no paid model/credit or cloud render is called. Higgsfield provider generation is explicitly blocked in zero-extra-spend mode; HyperFrames Pro, Remotion license limits, OpenMontage paid adapters and the archived Piper link are documented. **These are optional integration recipes/handoffs, not preinstalled end-to-end pipelines.** The existing lightweight FFmpeg/Whisper editor remains the default.
 
+## Executable three-mode production (local, no API)
+
+Agents should start with the [capability and execution-routing map](reference/agent-capabilities.md).
+It explains ready commands, local FFmpeg possibilities beyond the fixed
+portrait preset, optional tools, runtime checks and truthful reporting.
+
+Use `scripts/produce.py` for reviewed long-video excerpts, local faceless
+storyboards, or personal-footage assembly. Unlike the advisory tool catalog,
+this command actually renders previews and 1080×1920 MP4 finals. AI planning,
+transcripts, optional TTS and generated assets are supplied separately using
+your existing agent/local tools; upstream projects are not automatically run.
+
+```sh
+python scripts/produce.py --project work/my-short init --mode long-to-shorts
+# Put media in work/my-short/src and edit production.json first.
+python scripts/produce.py --project work/my-short doctor
+python scripts/produce.py --project work/my-short preview
+# Watch preview, then use the SHA256 printed by preview:
+python scripts/produce.py --project work/my-short final --approve-preview SHA256
+```
+
+See the [human and agent quick starts](reference/production.md) and
+[three example manifests](examples/production). No automatic installations,
+network providers or uploads. Remote `plan_provider.py` APIs are now blocked
+by default even with `--allow-remote`; a deliberately paid workflow additionally
+requires `VIDEO_WORKBENCH_ZERO_SPEND=0`.
+
 ## Quick start — lightweight (no server, no API key)
 
 Clone this public repository, install Python 3.10+ and FFmpeg/FFprobe for your OS from their official sources, then run:

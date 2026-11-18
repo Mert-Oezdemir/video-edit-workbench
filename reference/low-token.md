@@ -56,6 +56,9 @@ python SKILL/scripts/plan_provider.py --packet work/planner-input.json --out wor
 ```
 
 **Bulut API:** OpenAI uyumlu chat-completions veya Anthropic Messages protokolü.
+Varsayılan ücret engeli bu yolu kapatır. Yalnızca ayrıca ücretli API kullanımını
+bilerek isteyen kullanıcı `VIDEO_WORKBENCH_ZERO_SPEND=0` ortam ayarıyla birlikte
+`--allow-remote` kullanabilir. Mevcut abonelikle ücretsiz kullanımda bunu açma.
 Modelin kullanılan protokolü/parametreleri desteklemesi gerekir. API anahtarını
 ortam değişkenine koy; repoya yazma. Örnek:
 

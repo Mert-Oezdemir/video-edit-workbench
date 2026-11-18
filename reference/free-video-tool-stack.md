@@ -61,6 +61,12 @@
 4. For complex typography or transitions choose **HyperFrames** *or* **Remotion**; keep the program timeline accurate. FFmpeg Skill can help with isolated local edits.
 5. Preview, review cuts/loudness/face safe areas and export.
 
+## Executable local production
+
+For actual three-mode composition, use [produce.py](production.md). It renders
+reviewed local segments/storyboards and captions; upstream adapters remain
+optional manual handoffs. The catalog CLI below remains advisory.
+
 ## Local CLI: inspect, select, don't install
 
 Run in the repository directory, using Python 3.10+:

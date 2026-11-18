@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "mode": "own-footage",
+  "framing": "fit",
+  "segments": [
+    {"source": "src/take-1.mp4", "start": 1, "duration": 5},
+    {"source": "src/take-2.mp4", "start": 0, "duration": 5}
+  ],
+  "captions": []
+}

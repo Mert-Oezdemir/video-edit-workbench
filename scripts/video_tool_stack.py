@@ -144,6 +144,10 @@ def main(argv=None):
                 print("{:<19} {:<24} {:<25} {}".format(
                     item["id"], item["installed"], item["eligibility"], item["url"]))
             print("Presence is not an execution, API, license or compatibility test.")
+        if args.command == "doctor":
+            # Require core prerequisites; manual optional upstream checks remain advisory.
+            return 0 if all(item["installed"] == "present" for item in entries
+                            if item["enabled_by_default"]) else 1
         return 0
     except (ValueError, KeyError, OSError, json.JSONDecodeError) as exc:
         print("Error:", exc, file=sys.stderr)
