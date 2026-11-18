@@ -1,5 +1,17 @@
 # Video Edit Workbench — agent instructions
 
+**Agent quick start:** Read [AI_START.md](AI_START.md) and
+[QUICKSTART_TR.md](QUICKSTART_TR.md) first. The executable local starter
+entrypoint is `python workbench.py` with `init`, `doctor`, `tools`, `shorts`,
+`faceless` and `edit`. Run `python workbench.py --help` and
+`python workbench.py doctor --json` before claiming a tool is ready.
+These modes use local FFmpeg. `shorts` requires a matching SRT, explicit
+timings, or a local Whisper backend; heuristic clip choice is not a viral
+guarantee. `faceless` makes a silent caption-card video unless local audio
+or a licensed Piper model is provided. `edit` is quick trim/reframe/silence
+clean-up, not the full word-accurate human-reviewed EDL engine below.
+Optional catalog entries are not silently installed.
+
 Any coding or tool-capable AI can use this repository. The editing engine is
 provider-neutral; no Claude dependency or mandatory paid API.
 
