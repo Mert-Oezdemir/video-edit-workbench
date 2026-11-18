@@ -28,3 +28,24 @@ jobs:
         run: python -m compileall -q scripts tests
       - name: Run unit tests without models or API keys
         run: python -m unittest discover -s tests -v
+
+  media-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install local video encoders (no models or APIs)
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-dejavu-core
+      - name: Check encoding features
+        run: |
+          ffmpeg -hide_banner -encoders | grep libx264
+          ffmpeg -hide_banner -filters | grep -E ' ass | subtitles '
+      - name: Render offline smoke tests of all three modes
+        env:
+          RUN_MEDIA_SMOKE: '1'
+        run: python -m unittest discover -s tests -p 'test_workbench_smoke.py' -v

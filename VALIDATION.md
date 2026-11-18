@@ -1,3 +1,20 @@
+## Real local three-mode smoke test
+
+The new `workbench.py` CLI is separately tested for input/file safety,
+plan selection and actual FFmpeg MP4 renders. A dedicated GitHub Actions
+`media-smoke` job generates its **own synthetic** recording, then creates
+an edited video, a captioned vertical Short and a faceless vertical Short;
+it probes each output's 1080x1920 dimensions.
+
+```sh
+python -m unittest discover -s tests -p test_workbench_cli.py -v
+RUN_MEDIA_SMOKE=1 python -m unittest discover -s tests -p test_workbench_smoke.py -v
+```
+
+No third-party video, voice model, API call or private source is included.
+These tests do **not** establish reliable "viral" editing or the compatibility
+of every optional repo in the catalog.
+
 ## Optional free video stack and handoff checks
 
 The tracked optional-tool registry, three-mode routing CLI and external

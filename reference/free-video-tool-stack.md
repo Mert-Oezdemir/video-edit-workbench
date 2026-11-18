@@ -1,5 +1,14 @@
 # Free video tool stack / Ücretsiz video araçları
 
+**Runnable entrypoint added:** `python workbench.py` now implements
+`init`, `doctor`, `tools`, `shorts`, `faceless` and `edit`
+with local FFmpeg. See [Turkish quickstart](../QUICKSTART_TR.md) and
+[AI start](../AI_START.md). Existing high-precision cutting remains intact.
+The JSON catalog and `scripts/video_tool_stack.py plan` are still **advisory**,
+and the 13 optional upstream projects are not silently installed or integrated
+end-to-end. The faceless baseline is typography/media with optional local TTS,
+not a hosted text-to-video model.
+
 > **Scope:** This is an **on-demand integration guide** for [Video Edit Workbench](../README.md), not a lockfile, a one-click factory, a claim that every project has been tested, or permission to spend money. The existing Python/NumPy/FFmpeg/Whisper editing engine remains the default. The machine-readable catalog is [video-tool-registry.json](video-tool-registry.json).
 
 ## Rules: subscription AI, zero extra invoices

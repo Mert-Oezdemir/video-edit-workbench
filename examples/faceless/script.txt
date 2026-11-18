@@ -1,0 +1,7 @@
+Her büyük fikir küçük bir soruyla başlar.
+
+İyi bir video önce açık bir mesaj kurar. Sonra o mesajı doğru tempoyla anlatır.
+
+Bu örnekte bütün görseller ve yazılar ücretsiz yerel araçlarla hazırlanır.
+
+Kendi sesini veya lisanslı bir yerel ses modelini eklersen video çok daha canlı olur.

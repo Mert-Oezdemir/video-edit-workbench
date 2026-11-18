@@ -7,6 +7,18 @@ description: Edit talking-head, tutorial, explainer and Short videos with Claude
 
 This skill turns raw footage into a finished edit together with a human editor. Read this whole file before touching a project. Then read `reference/audio.md` before any cut or level change, and `reference/style.md` before any graphics.
 
+## Simple executable entrypoint (new)
+
+When the task is a straightforward local Shorts export, faceless caption-card
+video or quick edit, read `AI_START.md` / `QUICKSTART_TR.md` and prefer
+`python workbench.py shorts|faceless|edit --help` rather than producing
+a tool-catalog plan only. Use `python workbench.py doctor` first.
+The new commands are real local FFmpeg workflows; they do not call hosted
+providers or install optional external repos. They do not replace the
+existing high-precision word-accurate EDL workflow described below.
+Never mistake a plan-only JSON or tool-catalog entry for rendered media.
+Preserve original files, obtain user rights, review results before publishing.
+
 ## Mandatory first step: editorial intake
 
 Before editing, optional installations or rendering, follow [reference/editorial-intake.md](reference/editorial-intake.md). Inspect the supplied content and requirements, determine the intended message and useful options, and agree on the plan. Ask whether to research current sources or include any new user-provided material unless already answered. Local transcription for understanding is allowed before this conversation. Consolidate this with the existing creator/project questions; never repeat answered questions. Keep original content intact unless substantive additions or corrections are authorized. This step applies to every mode, including the lightweight workflow.
