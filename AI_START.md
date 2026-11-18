@@ -1,5 +1,7 @@
 # AI / Agent start here — Video Edit Workbench
 
+Read the [agent capabilities map](reference/agent-capabilities.md) to choose between the starter CLI, reviewed manifest rendering and direct FFmpeg operations.
+
 Read this file first, then [AGENTS.md](AGENTS.md), then the relevant mode guide in [QUICKSTART_TR.md](QUICKSTART_TR.md). This repo includes **real runnable local starter modes** plus optional third-party catalog entries. Do not confuse advisory tool plans with installed renderers.
 
 ## Command router

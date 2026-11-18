@@ -1,3 +1,18 @@
+## Executable production checks
+
+The new `tests/test_production.py` exercises real FFmpeg media for all three
+modes: selected video excerpts, multiple personal clips, and an image storyboard
+with a separate local narration track. Each produces a preview and a
+1080×1920 H.264/AAC final, with full decode verification. Tests also cover
+stale/wrong preview approval, no-overwrite behavior, unchanged source hashes,
+bad segment ranges, missing files, path restrictions and paid-provider policy.
+CI installs FFmpeg so these tests run rather than skip. Local runs without
+FFmpeg explicitly skip the real-media group.
+
+This does not validate optional upstream adapters, AI editorial quality,
+voice models, GPU generation, face tracking or natural Turkish transcription.
+The fixtures are synthetic and short; longer/natural footage needs review.
+
 ## Real local three-mode smoke test
 
 The new `workbench.py` CLI is separately tested for input/file safety,

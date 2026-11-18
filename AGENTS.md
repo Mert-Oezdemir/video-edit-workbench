@@ -15,6 +15,14 @@ Optional catalog entries are not silently installed.
 Any coding or tool-capable AI can use this repository. The editing engine is
 provider-neutral; no Claude dependency or mandatory paid API.
 
+- First read reference/agent-capabilities.md. Treat the user's natural-language
+  request as the job brief; choose the execution path yourself. A fixed preset
+  in produce.py is not the limit of FFmpeg or of the agent's available tools.
+  Distinguish implemented commands, local operations requiring a composed
+  command, optional installations, and unavailable/paid services. Verify the
+  current machine before promising an output. Never claim catalog entries are
+  installed integrations or silently replace the requested format.
+
 - Before editing any new video, follow reference/editorial-intake.md: inspect
   the topic, requirements, supplied material and available options; summarize
   the plan and ask once about current-source research and user-provided additions
@@ -23,6 +31,9 @@ provider-neutral; no Claude dependency or mandatory paid API.
 - Default to Python + NumPy + FFmpeg/FFprobe + one local Whisper backend.
 - Read reference/low-token.md for the compact planning contract. Run existing
   scripts instead of rewriting them. Keep verbose logs out of model context.
+- For executable three-mode local production, read reference/production.md.
+  Use produce.py init/doctor/preview/final with reviewed local manifests.
+  Never pass preview approval on the user's behalf before they review it.
 - For long-form-to-Shorts, faceless production, or personal-footage modes, read
   reference/free-video-tool-stack.md and reference/video-tool-registry.json.
   Use `python scripts/video_tool_stack.py plan --mode MODE` as an advisory

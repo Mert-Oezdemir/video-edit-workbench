@@ -21,6 +21,13 @@ Preserve original files, obtain user rights, review results before publishing.
 
 ## Mandatory first step: editorial intake
 
+Read [agent capabilities and execution routing](reference/agent-capabilities.md)
+before choosing tools. Interpret natural-language requests and select the
+appropriate existing script or explicit local FFmpeg operation. The fixed
+portrait preset in produce.py does not imply that horizontal or square video
+is impossible. Verify prerequisites and requested outputs; distinguish ready
+features from optional tools and work that still needs implementation.
+
 Before editing, optional installations or rendering, follow [reference/editorial-intake.md](reference/editorial-intake.md). Inspect the supplied content and requirements, determine the intended message and useful options, and agree on the plan. Ask whether to research current sources or include any new user-provided material unless already answered. Local transcription for understanding is allowed before this conversation. Consolidate this with the existing creator/project questions; never repeat answered questions. Keep original content intact unless substantive additions or corrections are authorized. This step applies to every mode, including the lightweight workflow.
 
 ## Default: lightweight, no unnecessary dependencies
