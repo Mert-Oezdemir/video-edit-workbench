@@ -21,6 +21,12 @@ cost credits; OpenMontage can call paid providers; HyperFrames Pro features and
 Remotion licensing are separate; the linked Piper repo is archived.
 Only use tools that satisfy the project's zero-extra-spend restriction.
 
+The **executable** user/agent entrypoint is now
+`python workbench.py --help` (three locally renderable modes, optional
+Faster Whisper or Piper). See [QUICKSTART_TR.md](../QUICKSTART_TR.md).
+The tool-selection registry remains advisory and MUST NOT be described as
+automatic third-party installation or render integration.
+
 ## Decision protocol
 
 1. Identify the intended visual/audio improvement and whether the existing

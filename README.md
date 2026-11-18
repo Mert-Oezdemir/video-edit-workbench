@@ -1,5 +1,51 @@
 # Video Edit Workbench
 
+> **Bir repo, üç ücretsiz yerel video yolu:** uzun videodan Shorts adayları, sıfırdan yüzsüz metin/görsel Shorts ve kendi kayıtlarını düzenleme. Mevcut Claude Code/Codex aboneliği isteğe bağlı editoryal kararlar için kullanılabilir; **ek ücretli API veya kredi zorunlu değil**.
+
+**<a href="QUICKSTART_TR.md">🇹🇷 Türkçe hızlı başlangıç</a> · [AI ajanı için başlangıç](AI_START.md) · [Ücretsiz araç kataloğu](reference/free-video-tool-stack.md) · [Tüm örnekler](examples/README.md)**
+
+## 30 saniyede nasıl kullanılır?
+
+Python 3.10+ ve yerel **FFmpeg/FFprobe** kur. Depoyu indirip sağlık kontrolü ve proje başlat:
+
+```sh
+git clone https://github.com/Mert-Oezdemir/video-edit-workbench.git
+cd video-edit-workbench
+python workbench.py doctor
+python workbench.py init my-videos
+```
+
+| İstediğin iş | Çalıştıracağın komut | Gerçekte ne yapar? |
+|---|---|---|
+| **Uzun video → Shorts** | `python workbench.py shorts --project my-videos --input src/recording.mp4 --srt src/recording.srt --burn-captions` | Transkriptten **aday klipleri** seçer, yeni 9:16 MP4 ve altyazı üretir |
+| **Sıfırdan yüzsüz Short** | `python workbench.py faceless --project my-videos --script src/script.txt` | Metin sahneleriyle oynatılabilir **sessiz** 9:16 MP4 oluşturur; isteğe bağlı yerel ses/görsel eklenir |
+| **Kendi çekimini düzenle** | `python workbench.py edit --project my-videos --input src/take.mp4 --format portrait --remove-silence` | Yerel FFmpeg ile sessizlik temizler, yeniden kadrajlar, yeni MP4 üretir |
+
+Dosyaları önce `my-videos/src/` içine yerleştir. Çıktılar `out/` klasörüne yazılır; **kaynak dosyalar değiştirilmez, mevcut sonuçların üzerine yazılmaz**. Bu komutların hiçbiri kendiliğinden yayın yapmaz.
+
+**Hızlı kontrol:** `python workbench.py --help` veya `python workbench.py shorts --help`. Mevcut transkript yoksa isteğe bağlı yerel Faster Whisper'ı kur; ilk model indirmesi yalnızca `--allow-model-download` ile yapılır. [Tam örnekler ve Windows/macOS/Linux notları](QUICKSTART_TR.md).
+
+### Özelliklerin gerçek durumu
+
+| Hazır ve yerel | İsteğe bağlı / ayrıca doğrulanmalı |
+|---|---|
+| FFmpeg ile kesme, kadraj, MP4, ASS/SRT, temel sessizlik temizleme; üç modun CLI'ı | FFmpeg Skill, Auto-Editor, Claude Shorts, Ghost Editor, OpenMontage, rea-video, HyperFrames, Remotion, ComfyUI, Piper |
+| Ayrı gelişmiş editörde kelime hassasiyetinde kesim ve insan onaylı EDL | Üçüncü taraf projelerin otomatik kurulumu veya uçtan uca birleşmesi **yapılmadı** |
+| Mod bazlı araç kataloğu, güvenli inceleme dosyaları, ücretsiz öncelikli seçim | Higgsfield servis kredileri, HeyGen/HyperFrames Pro, ücretli model çağrıları **çalıştırılmaz** |
+
+**Not:** Shorts puanlaması yerel metin sezgisidir, viral başarı garantisi değildir. Yüzsüz modda yerel seslendirme ayrıca sağlanır veya lisansı uygun Piper kullanılır. Sinematik AI video üretimi ücretsiz donanım/model ile ayrıca yapılandırılmalıdır. Lisansı olmayan başkalarının görüntülerini otomatik indirme.
+
+## Bu repoyu bir AI ajanıyla kullan
+
+AI ajanına şu yönerge yeterli: **“Önce `AI_START.md` ve `AGENTS.md` oku, `python workbench.py doctor` çalıştır, `src/` içindeki izinli materyalle istediğim modu seç. Ücretli API veya bulut render çağırma, önce önizleme üret ve asıl kaynakları koru.”** Başka hiçbir gizli komut veya sağlayıcı anahtarı gerekmez.
+
+---
+
+## Advanced documentation / Önceki gelişmiş iş akışları
+
+Aşağıdaki özgün editör belgeleri ve yerel kurgu altyapısı korunmuştur; ayrıntılı profesyonel çalışmalar için hâlâ kullanılabilir.
+
+
 This edition builds on [claude-video-edit](https://github.com/YildizDikme/claude-video-edit) by YildizDikme, commit `b7093e25373271cc33475958fe7d850a71da4223`. The upstream copyright notice and MIT license are in [LICENSE](LICENSE). The upstream example photos are omitted. The HTML template references Google Fonts and GSAP at runtime, and the repository does not bundle those dependencies.
 
 ## Understand before editing / Kurgudan önce konuyu anla

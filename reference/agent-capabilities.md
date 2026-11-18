@@ -31,15 +31,15 @@ An agent with file/terminal access can execute; a text-only chat cannot.
 
 | User asks for | Execution route | Limits / checks |
 |---|---|---|
-| Long recording → selected Short | Agent chooses coherent passages from local transcript; produce.py renders reviewed ranges | No automatic viral scoring, face tracking or highlight model in the runner |
-| Faceless story/explainer | Agent authors script/storyboard; produce.py composes local stills/clips, optional supplied narration and captions | It does not create images, speech or script by calling a model |
-| Edit personal footage | Existing transcribe/cuts/build/verify pipeline; produce.py for explicitly selected ranges | Use existing word-boundary pipeline when speech-safe cuts matter |
+| Long recording → selected Short | workbench.py shorts proposes local transcript candidates; produce.py renders explicitly reviewed ranges | No automatic viral scoring, face tracking or highlight model in the runner |
+| Faceless story/explainer | workbench.py faceless renders script cards with optional local audio/Piper; produce.py composes reviewed local stills/clips and narration | It does not create images, speech or script by calling a model |
+| Edit personal footage | workbench.py edit for quick trim/reframe; transcribe/cuts/build/verify for speech-safe edits; produce.py for reviewed ranges | Use existing word-boundary pipeline when speech-safe cuts matter |
 | Vertical 9:16 MP4 | produce.py init → doctor → preview → final | Preview 360×640; final 1080×1920, 30 fps, H.264/AAC |
-| Horizontal 16:9 or square 1:1 | Existing scene/source-resolution path where suitable, or agent-composed FFmpeg scale/pad/crop/export | New produce.py has no ratio option; do not pretend that changing a nonexistent flag works |
+| Horizontal 16:9 or square 1:1 | workbench.py edit --format landscape for horizontal edits; agent-composed FFmpeg for square or custom framing | New produce.py has no ratio option; do not pretend that changing a nonexistent flag works |
 | Custom dimensions, 4K or different FPS | Inspect existing render/build options; otherwise explicit local FFmpeg operation | Check encoder, source detail, resource cost, frame timing and preview; upscaling does not create detail |
 | MOV, WebM, another container/codec | Agent-composed FFmpeg conversion | Inspect available encoder/muxer and compatible audio/pixel format; extension alone is insufficient |
 | Trim, concatenate, resize, pad, center crop, pan/zoom | Existing helpers or explicit FFmpeg filters | Confirm framing; center crop is not face-aware tracking |
-| Local transcription | transcribe.py with an installed local Whisper backend | Model, language and hardware must be checked; downloads are not implied by availability |
+| Local transcription | workbench.py shorts or transcribe.py with an installed local Whisper backend | Model, language and hardware must be checked; downloads are not implied by availability |
 | Subtitles / simple text cards | creative_overlay.py; supplied output-timeline captions in produce.py | Check libass, fonts, sync, reading speed and safe areas |
 | Bespoke motion graphics / diagram | Existing HTML/CSS/GSAP scene; render.mjs where appropriate | Optional browser/Node prerequisites; custom scenes require actual implementation and visual review |
 | Loudness, sound mix, synthesized SFX | Existing build.py, mix.py, loudness.py and sfx.py | Read audio.md; do not apply voice processing or effects without the brief supporting it |
@@ -77,7 +77,8 @@ tool, convert its timeline or import it into the edit automatically.
 
 ## Runtime discovery and validation
 
-Run only relevant checks. `python scripts/doctor.py` checks the legacy base
+Run only relevant checks. `python workbench.py doctor --json` checks the starter CLI environment.
+`python scripts/doctor.py` checks the legacy base
 environment; `python scripts/video_tool_stack.py doctor --mode MODE` checks
 catalog presence only. Neither proves a working GPU, downloaded model, voice,
 third-party adapter or correct video. For production manifests, use
