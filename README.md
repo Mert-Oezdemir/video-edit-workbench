@@ -33,6 +33,11 @@ python scripts/video_tool_stack.py plan --mode faceless
 python scripts/video_tool_stack.py plan --mode own-footage
 ```
 
+To safely register an optional tool's **already-rendered local output** for
+review, use `scripts/external_handoff.py` (details in the free-first guide).
+This writes a non-approved manifest and uses local FFprobe for videos; it
+does not automatically edit the timeline or execute external repositories.
+
 This is a **read-only, provider-neutral planner**: tools are not silently installed, media is not uploaded, and no paid model/credit or cloud render is called. Higgsfield provider generation is explicitly blocked in zero-extra-spend mode; HyperFrames Pro, Remotion license limits, OpenMontage paid adapters and the archived Piper link are documented. **These are optional integration recipes/handoffs, not preinstalled end-to-end pipelines.** The existing lightweight FFmpeg/Whisper editor remains the default.
 
 ## Quick start — lightweight (no server, no API key)
