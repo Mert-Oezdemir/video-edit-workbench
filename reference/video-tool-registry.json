@@ -1,0 +1,353 @@
+{
+  "schema_version": 1,
+  "checked_on": "2026-11-18",
+  "purpose": "Optional video tooling inventory; NOT installed packages or verified integrations",
+  "modes": [
+    "long-to-shorts",
+    "faceless",
+    "own-footage"
+  ],
+  "policy": {
+    "extra_api_spend_allowed": false,
+    "cloud_generation_allowed": false,
+    "cloud_render_allowed": false,
+    "paid_features_allowed": false,
+    "auto_install_optional_tools": false,
+    "send_private_media_off_device": false,
+    "review_before_final": true,
+    "protect_originals": true
+  },
+  "tools": [
+    {
+      "id": "ffmpeg",
+      "name": "FFmpeg / FFprobe",
+      "url": "https://ffmpeg.org/",
+      "license": "LGPL/GPL (depends on build)",
+      "modes": [
+        "long-to-shorts",
+        "faceless",
+        "own-footage"
+      ],
+      "policy": "local-free",
+      "role": "Current local cutting, verification, captions, audio and MP4 output",
+      "availability": {
+        "type": "binary",
+        "name": "ffmpeg"
+      },
+      "note": "FFprobe is separately checked by the existing doctor; retain the current pipeline.",
+      "enabled_by_default": true
+    },
+    {
+      "id": "faster-whisper",
+      "name": "Faster Whisper",
+      "url": "https://github.com/SYSTRAN/faster-whisper",
+      "license": "MIT",
+      "modes": [
+        "long-to-shorts",
+        "own-footage"
+      ],
+      "policy": "local-free",
+      "role": "Local transcription and word-level timestamps",
+      "availability": {
+        "type": "python_module",
+        "name": "faster_whisper"
+      },
+      "note": "Model weights download on first use; verify model license and transcript accuracy.",
+      "enabled_by_default": true
+    },
+    {
+      "id": "ffmpeg-skill",
+      "name": "FFmpeg Skill",
+      "url": "https://github.com/kajisho5/ffmpeg-skill",
+      "license": "MIT",
+      "modes": [
+        "long-to-shorts",
+        "faceless",
+        "own-footage"
+      ],
+      "policy": "local-free",
+      "role": "Optional 42-tool agent/MCP FFmpeg command layer",
+      "availability": {
+        "type": "manual"
+      },
+      "note": "Overlaps with existing FFmpeg scripts; enable only for tasks needing its typed tools.",
+      "enabled_by_default": false
+    },
+    {
+      "id": "auto-editor",
+      "name": "Auto-Editor",
+      "url": "https://github.com/WyattBlue/auto-editor",
+      "license": "Unlicense",
+      "modes": [
+        "long-to-shorts",
+        "own-footage"
+      ],
+      "policy": "local-free",
+      "role": "Optional silence/motion-based rough edit",
+      "availability": {
+        "type": "binary",
+        "name": "auto-editor"
+      },
+      "note": "Preview all proposed cuts; do not override human-approved work/edl.json.",
+      "enabled_by_default": false
+    },
+    {
+      "id": "claude-shorts",
+      "name": "Claude Shorts",
+      "url": "https://github.com/AgriciDaniel/claude-shorts",
+      "license": "MIT",
+      "modes": [
+        "long-to-shorts"
+      ],
+      "policy": "existing-subscription",
+      "role": "Optional Claude-led moment selection, tracking and Remotion captions",
+      "availability": {
+        "type": "manual"
+      },
+      "note": "Requires Claude Code, Node, Python and FFmpeg; Windows uses WSL2. No independent production quality guarantee.",
+      "enabled_by_default": false
+    },
+    {
+      "id": "ghost-editor",
+      "name": "Ghost Editor",
+      "url": "https://github.com/kurbaitaev/ghost-editor",
+      "license": "MIT",
+      "modes": [
+        "faceless",
+        "own-footage"
+      ],
+      "policy": "existing-subscription",
+      "role": "Optional talking-head and explainer preset workflow",
+      "availability": {
+        "type": "manual"
+      },
+      "note": "Apple Silicon Mac + paid Claude Code plan; optional Gemini/ElevenLabs steps can send data or charge: disable unless authorized.",
+      "enabled_by_default": false
+    },
+    {
+      "id": "openmontage",
+      "name": "OpenMontage",
+      "url": "https://github.com/OpenMontageInc/OpenMontage",
+      "license": "AGPL-3.0",
+      "modes": [
+        "long-to-shorts",
+        "faceless",
+        "own-footage"
+      ],
+      "policy": "mixed-providers",
+      "role": "Optional agentic video-production pipelines and free footage workflow",
+      "availability": {
+        "type": "manual"
+      },
+      "note": "AGPL obligations may apply; many demos use billable model providers. Keep external provider paths disabled.",
+      "enabled_by_default": false
+    },
+    {
+      "id": "rea-video",
+      "name": "rea-video",
+      "url": "https://github.com/JuneYaooo/rea-video",
+      "license": "Apache-2.0",
+      "modes": [
+        "long-to-shorts",
+        "faceless",
+        "own-footage"
+      ],
+      "policy": "local-free",
+      "role": "Analyze reference videos; output report.html and VIDEO.md",
+      "availability": {
+        "type": "manual"
+      },
+      "note": "Analysis is not rendering; video-capable cloud models and remake generation can incur costs.",
+      "enabled_by_default": false
+    },
+    {
+      "id": "hyperframes",
+      "name": "HyperFrames",
+      "url": "https://github.com/heygen-com/hyperframes",
+      "license": "Apache-2.0",
+      "modes": [
+        "long-to-shorts",
+        "faceless",
+        "own-footage"
+      ],
+      "policy": "free-core-pro-extras",
+      "role": "Optional HTML-native motion graphics and local MP4 renderer",
+      "availability": {
+        "type": "manual"
+      },
+      "note": "Local CLI/Studio free; Pro-only reverse-any-video and style-sampling, HeyGen generation and cloud render are blocked.",
+      "enabled_by_default": false
+    },
+    {
+      "id": "remotion",
+      "name": "Remotion",
+      "url": "https://github.com/remotion-dev/remotion",
+      "license": "Remotion License",
+      "modes": [
+        "long-to-shorts",
+        "faceless",
+        "own-footage"
+      ],
+      "policy": "restricted-license",
+      "role": "Alternative React-based captions/graphics renderer",
+      "availability": {
+        "type": "manual"
+      },
+      "note": "Not generally unrestricted OSS. Check current license and commercial eligibility before use; choose HyperFrames OR Remotion.",
+      "enabled_by_default": false
+    },
+    {
+      "id": "piper",
+      "name": "Piper TTS (rhasspy archive)",
+      "url": "https://github.com/rhasspy/piper",
+      "license": "MIT",
+      "modes": [
+        "faceless"
+      ],
+      "policy": "local-free",
+      "role": "Offline voice synthesis for faceless video",
+      "availability": {
+        "type": "binary",
+        "name": "piper"
+      },
+      "note": "This repository is archived. Pick a maintained distribution; voice-model licenses and pronunciation vary.",
+      "enabled_by_default": false
+    },
+    {
+      "id": "comfyui",
+      "name": "ComfyUI",
+      "url": "https://github.com/Comfy-Org/ComfyUI",
+      "license": "GPL-3.0",
+      "modes": [
+        "faceless"
+      ],
+      "policy": "local-free-hardware",
+      "role": "Optional local image/video diffusion models",
+      "availability": {
+        "type": "manual"
+      },
+      "note": "High VRAM/storage may be required; model weights may have separate licenses. No cloud GPU by default.",
+      "enabled_by_default": false
+    },
+    {
+      "id": "higgsfield-skills",
+      "name": "Higgsfield AI Skills / Editorial Motion Graphics",
+      "url": "https://github.com/higgsfield-ai/skills",
+      "license": "MIT",
+      "modes": [
+        "faceless"
+      ],
+      "policy": "paid-service-disabled",
+      "role": "Optional external generation skills, not part of zero-extra-cost path",
+      "availability": {
+        "type": "manual"
+      },
+      "note": "Skill code is free but hosted Higgsfield models can consume credits. Never auto-authenticate or submit jobs.",
+      "enabled_by_default": false
+    }
+  ],
+  "routes": {
+    "long-to-shorts": [
+      {
+        "step": "intake",
+        "tools": [
+          "ffmpeg"
+        ],
+        "action": "Use owned/authorized local media in project/src; check rights and platform policies."
+      },
+      {
+        "step": "transcribe",
+        "tools": [
+          "faster-whisper"
+        ],
+        "action": "Run existing transcribe.py and low_token.py; verify text and boundaries."
+      },
+      {
+        "step": "clip-selection",
+        "tools": [
+          "claude-shorts"
+        ],
+        "action": "Optional: score hooks with an existing agent session; otherwise manually select from compact transcript packet."
+      },
+      {
+        "step": "preview-and-export",
+        "tools": [
+          "ffmpeg",
+          "ffmpeg-skill",
+          "hyperframes",
+          "remotion"
+        ],
+        "action": "Existing FFmpeg preview and short preset first; use exactly one optional renderer for advanced typography."
+      }
+    ],
+    "faceless": [
+      {
+        "step": "script-and-rights",
+        "tools": [
+          "openmontage"
+        ],
+        "action": "Optional local workflow planning; use rights-cleared stock, original media or assets only."
+      },
+      {
+        "step": "media-and-voice",
+        "tools": [
+          "piper",
+          "comfyui"
+        ],
+        "action": "Use local Piper voice where licensed; ComfyUI only if hardware and model licenses permit."
+      },
+      {
+        "step": "reference-analysis",
+        "tools": [
+          "rea-video"
+        ],
+        "action": "Optional VIDEO.md/style analysis; do not reuse unlicensed frames/audio."
+      },
+      {
+        "step": "compose-and-review",
+        "tools": [
+          "ffmpeg",
+          "hyperframes",
+          "remotion"
+        ],
+        "action": "FFmpeg or one approved local renderer; do not call Higgsfield/HeyGen paid generation."
+      }
+    ],
+    "own-footage": [
+      {
+        "step": "intake-and-transcribe",
+        "tools": [
+          "ffmpeg",
+          "faster-whisper"
+        ],
+        "action": "Use existing editorial intake and preserve original source."
+      },
+      {
+        "step": "rough-cut",
+        "tools": [
+          "auto-editor",
+          "ghost-editor",
+          "ffmpeg"
+        ],
+        "action": "Existing cuts.py first. Auto-Editor or Ghost Editor only if needed and compatible."
+      },
+      {
+        "step": "optional-reference",
+        "tools": [
+          "rea-video"
+        ],
+        "action": "Analyze reference editing techniques without copying third-party content."
+      },
+      {
+        "step": "graphics-and-export",
+        "tools": [
+          "ffmpeg-skill",
+          "hyperframes",
+          "remotion",
+          "ffmpeg"
+        ],
+        "action": "Use established EDL; try one optional graphics tool; keep approved export."
+      }
+    ]
+  }
+}

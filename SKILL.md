@@ -19,6 +19,21 @@ This rule takes precedence over the longer creative workflow below unless the us
 
 If the existing lightweight pipeline cannot achieve a concrete effect or analysis, read [reference/tool-catalog.md](reference/tool-catalog.md). You may select and install the smallest justified optional tool for the current job without asking the user to choose the tool, subject to host permissions and the catalog's installation, privacy and cost limits. Do not install the catalog by default. Test a short sample, record the choice, and keep the existing engine.
 
+## Optional three-mode free-first video toolbox
+
+For long recordings to Shorts, faceless Shorts and own-footage editing, consult
+[reference/free-video-tool-stack.md](reference/free-video-tool-stack.md). Its
+[registry](reference/video-tool-registry.json) covers the free/local repos discussed
+(FFmpeg/FFmpeg Skill, Faster Whisper, Auto-Editor, Claude Shorts, Ghost Editor,
+OpenMontage, rea-video, HyperFrames, Remotion, Piper, ComfyUI and Higgsfield
+Skills). Run `python scripts/video_tool_stack.py plan --mode long-to-shorts`
+(or `faceless` / `own-footage`) for a read-only advisory plan. These are
+**not preinstalled or production-tested direct adapters**; reuse existing local
+tools first and test a short handoff before using an external pipeline. In a
+zero-extra-spend request, do not call paid providers, buy credits, run cloud
+render or silently enable Pro-only features. Higgsfield hosted generation is
+blocked; check third-party licenses and provider conditions separately.
+
 ## Optional provider-neutral rough-cut mode
 
 For low-token requests, use [reference/low-token.md](reference/low-token.md). Run the existing local transcription, then `scripts/low_token.py prepare` and read only the compact packet; return a JSON object with the packet revision and the IDs of clearly superseded utterances to drop. Do not rewrite media tools or inspect full word timings unless needed for a specific correction. The planner can be any model or a human; `plan_provider.py` is optional. Review the proposed removals with the user before `apply` and `preview`. Later chapters, graphics, effects and final render still follow the existing workflow.

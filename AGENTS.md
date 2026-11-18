@@ -11,6 +11,17 @@ provider-neutral; no Claude dependency or mandatory paid API.
 - Default to Python + NumPy + FFmpeg/FFprobe + one local Whisper backend.
 - Read reference/low-token.md for the compact planning contract. Run existing
   scripts instead of rewriting them. Keep verbose logs out of model context.
+- For long-form-to-Shorts, faceless production, or personal-footage modes, read
+  reference/free-video-tool-stack.md and reference/video-tool-registry.json.
+  Use `python scripts/video_tool_stack.py plan --mode MODE` as an advisory
+  routing plan. The CLI never installs tools or spends credits; review the plan
+  and only use optional tools when the existing editor cannot meet the need.
+- No external provider keys, paid Higgsfield/HeyGen generation, HyperFrames Pro,
+  cloud rendering, or subscription API calls in a zero-extra-spend workflow.
+  A coding-agent subscription does not imply free API access. Ghost Editor and
+  Claude Shorts need a compatible existing agent plan and platform; rea-video
+  analyzes but does not itself render. Never present these optional recipes as
+  installed, compatible, or end-to-end tested. Preserve rights and source media.
 - For captions and simple graphics read reference/creative-tools.md.
 - For any task the existing tools cannot handle, consult reference/tool-catalog.md.
   Choose and install only the optional tool needed for the current task using

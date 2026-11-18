@@ -1,3 +1,22 @@
+## Optional free video stack and handoff checks
+
+The tracked optional-tool registry, three-mode routing CLI and external
+asset handoff can be validated without downloading models or invoking APIs:
+
+```sh
+python scripts/video_tool_stack.py list --json
+python scripts/video_tool_stack.py plan --mode long-to-shorts
+python scripts/video_tool_stack.py plan --mode faceless
+python scripts/video_tool_stack.py plan --mode own-footage
+python -m unittest discover -s tests -p 'test_video_tool_stack.py' -v
+python -m unittest discover -s tests -p 'test_external_handoff.py' -v
+```
+
+The unit tests mock FFprobe for generated video handoffs and use a real
+filesystem only for safe temporary dummy files. End-to-end generated media,
+cloud/paid feature availability and third-party installer security are **not**
+validated by these tests. See [reference/free-video-tool-stack.md](reference/free-video-tool-stack.md).
+
 # Verified workflow
 
 On 7 November 2026, a Windows run completed with Python 3.10, Node 26, FFmpeg 9, Chrome, and faster-whisper 1.2.1.
