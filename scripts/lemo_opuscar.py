@@ -75,7 +75,9 @@ def search_styles(styles, query, limit=10):
 
 
 
-def make_plan(project, library, style, filename=None):
+def make_plan(project, library, style, filename=None, mode="faceless"):
+    if mode not in ("long-to-shorts", "faceless", "own-footage"):
+        raise ValueError("Invalid Workbench mode")
     if not SLUG.fullmatch(style):
         raise ValueError("Style must be a valid local folder slug (e.g. neon-tubes)")
     source = read_library(library)
@@ -102,7 +104,7 @@ def make_plan(project, library, style, filename=None):
     content = {
         "schema_version": 1,
         "tool": "lemo-opuscar",
-        "mode": "faceless",
+        "mode": mode,
         "status": "advisory-style-plan-only",
         "approved": False,
         "rendered": False,
@@ -120,8 +122,8 @@ def make_plan(project, library, style, filename=None):
             "Read the selected STYLE.md locally; do not redistribute its text in this repo.",
             "Ask the user to approve the style/storyboard before using external production tools.",
             "Lemo runs separately with its own dependencies and agent requirements; this plan does not run it.",
-            "Keep any rendered local MP4 in the Workbench project and register it with scripts/external_handoff.py --tool lemo-opuscar --mode faceless --kind rendered-video.",
-            "Review the handoff and video with the human before adding it to an EDL or final output.",
+            "Keep any rendered local MP4 in the Workbench project and register it with scripts/external_handoff.py --tool lemo-opuscar --mode MODE --kind rendered-video (MODE is the current Workbench production mode).",
+            "Add a validated visual_component segment in the existing production.json, render a combined preview via scripts/produce.py, review it with the human, then approve final with preview SHA256.",
             "No automatic downloads, installs, cloud uploads, billing, model calls or source overwrites.",
         ],
     }
@@ -148,11 +150,14 @@ def main(argv=None):
             child.add_argument("--project", type=Path, required=True)
             child.add_argument("--style", required=True, help="A slug from 'list', e.g. neon-tubes")
             child.add_argument("--name", help="Optional new .json filename in work/style-plans/")
+            child.add_argument("--mode", default="faceless",
+                               choices=("long-to-shorts", "faceless", "own-footage"),
+                               help="Existing Workbench production mode; never starts a new renderer")
     args = parser.parse_args(argv)
     try:
         root = read_library(args.library)
         if args.command == "plan":
-            path = make_plan(args.project, root, args.style, args.name)
+            path = make_plan(args.project, root, args.style, args.name, args.mode)
             print("Advisory style plan written:", path)
             return 0
         styles = local_styles(root)
