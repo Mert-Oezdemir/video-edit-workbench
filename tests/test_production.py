@@ -12,6 +12,7 @@ from unittest.mock import patch
 SCRIPTS = Path(__file__).resolve().parents[1] / "scripts"
 sys.path.insert(0, str(SCRIPTS))
 from produce import digest, load_job, local_file, main, probe, render
+from external_handoff import make_handoff
 from spend_policy import require_paid_opt_in
 
 
@@ -95,6 +96,57 @@ class RealMediaTests(unittest.TestCase):
                     render(self.root, job, "preview")
                 shutil.rmtree(self.root / "out")
         self.assertEqual(digest(self.video), original)
+
+    def test_lemo_visual_component_inside_native_timeline(self):
+        folder = self.root / "work" / "handoffs"
+        folder.mkdir(parents=True)
+        manifest = make_handoff(self.root, "lemo-opuscar", "own-footage",
+                                Path("src/test.mp4"), "rendered-video",
+                                "Synthetic licensed test clip")
+        handoff = folder / "lemo-intro.json"
+        handoff.write_text(json.dumps(manifest), encoding="utf-8")
+        self.spec["segments"] = [
+            {"source": "src/test.mp4", "start": 0, "duration": .2,
+             "visual_component": {"tool": "lemo-opuscar", "style": "neon-tubes",
+                                  "handoff": "work/handoffs/lemo-intro.json"}},
+            {"source": "src/test.mp4", "start": .3, "duration": .2}
+        ]
+        job = self.job()
+        self.assertEqual(len(job["media"]), 2)
+        self.assertEqual(job["media"][0]["visual_component"]["style"], "neon-tubes")
+        self.assertIn("work/handoffs/lemo-intro.json", job["identity"]["inputs_sha256"])
+        render(self.root, job, "preview")
+        approval = digest(self.root / "out" / "preview.mp4")
+        with self.assertRaises(ValueError):
+            render(self.root, job, "final", "not-user-approved")
+        # Changing handoff provenance invalidates the reviewed preview.
+        handoff.write_text(json.dumps({**manifest, "provenance": "changed"}), encoding="utf-8")
+        altered_job = self.job()
+        with self.assertRaises(ValueError):
+            render(self.root, altered_job, "final", approval)
+        handoff.write_text(json.dumps(manifest), encoding="utf-8")
+        render(self.root, self.job(), "final", approval)
+        self.assertTrue((self.root / "out" / "final.mp4").is_file())
+
+    def test_lemo_visual_component_rejects_invalid_handoff(self):
+        folder = self.root / "work" / "handoffs"
+        folder.mkdir(parents=True)
+        valid = make_handoff(self.root, "lemo-opuscar", "own-footage",
+                             Path("src/test.mp4"), "rendered-video")
+        handoff = folder / "lemo.json"
+        component = {"tool": "lemo-opuscar", "style": "neon-tubes",
+                     "handoff": "work/handoffs/lemo.json"}
+        self.spec["segments"][0]["visual_component"] = component
+        for changes in ({"file": "src/other.mp4"}, {"mode": "faceless"},
+                        {"kind": "reference-report"}, {"approved": True}):
+            with self.subTest(changes=changes):
+                handoff.write_text(json.dumps({**valid, **changes}), encoding="utf-8")
+                with self.assertRaises(ValueError):
+                    self.job()
+        handoff.write_text(json.dumps(valid), encoding="utf-8")
+        self.spec["segments"][0]["visual_component"]["handoff"] = "../outside.json"
+        with self.assertRaises((ValueError, OSError)):
+            self.job()
 
     def test_bad_ranges_and_unknown_fields(self):
         for change in ({"duration": -1}, {"start": 3}, {"duration": True}):
