@@ -4,6 +4,17 @@
 
 [Lemo-Opuscar](https://github.com/lemomo-ai/lemo-opuscar), kodla film üretmek için 99 stil sunan, özellikle Claude Code odaklı bağımsız bir projedir. Bu adaptör mevcut yerel klonun stil JSON kayıtlarını okuyup Workbench'in **faceless** modu için bir ön plan çıkarır. Video üretim motorunu Workbench'e gömmez.
 
+## Ajanın karar ağacı ve yetenek haritası
+
+Ajanın ne zaman Lemo kullanacağı, ne zaman mevcut `workbench.py` iş akışında
+kalacağı, 99 stilin kullanım alanları, hangi komutun sadece plan verdiği ve
+hangi kalite/onay kontrollerinin gerektiği:
+**[Lemo-Opuscar agent workflow](lemo-opuscar-agent-workflow.md)**.
+
+Yerel kütüphanede stilleri anahtar kelimeyle daraltmak için:
+`python scripts/lemo_opuscar.py search --query "explainer" --limit 8 --json`.
+Bu yalnızca metadata aramasıdır; otomatik üretim veya kalite sıralaması değildir.
+
 ## İlk kullanım
 
 Önce Workbench projesi oluştur:
