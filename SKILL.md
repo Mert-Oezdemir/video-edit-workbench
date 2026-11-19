@@ -65,7 +65,7 @@ First detect the local checkout with `python scripts/lemo_opuscar.py doctor
 --json`. Use `list --json` for all local styles or `search --query
 "explainer" --json` for keyword matches. Read the matching upstream STYLE.md
 locally, explain suitability, prerequisites, licensing and alternatives.
-`plan --project PROJECT --style SLUG` writes a nonapproved plan, **not a film**.
+`plan --project PROJECT --style SLUG --mode MODE` writes a nonapproved plan for the current Workbench mode, **not a film**.
 Style guides are upstream CC BY-NC; do not copy them into this MIT repo.
 Upstream rendering is **separate and not auto-invoked**; only register an
 actual existing rights-cleared MP4 using `scripts/external_handoff.py` with
