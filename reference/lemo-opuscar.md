@@ -1,0 +1,44 @@
+# Lemo-Opuscar — isteğe bağlı sinematik stil planlama
+
+**Durum:** Yerel stil keşfi ve inceleme planı hazır. Üçüncü taraf film üretimi otomatik çalıştırılmaz. Workbench'in FFmpeg/Whisper motoru ve onaylı EDL akışı değişmez.
+
+[Lemo-Opuscar](https://github.com/lemomo-ai/lemo-opuscar), kodla film üretmek için 99 stil sunan, özellikle Claude Code odaklı bağımsız bir projedir. Bu adaptör mevcut yerel klonun stil JSON kayıtlarını okuyup Workbench'in **faceless** modu için bir ön plan çıkarır. Video üretim motorunu Workbench'e gömmez.
+
+## İlk kullanım
+
+Önce Workbench projesi oluştur:
+
+    python workbench.py init my-videos
+
+İhtiyacın varsa ve upstream kaynağını incelediysen Lemo'yu ayrı bir dizine **elle** kur:
+
+    git clone https://github.com/lemomo-ai/lemo-opuscar.git ~/lemo-opuscar
+
+Mevcut yerel klonu kullanarak:
+
+    python scripts/lemo_opuscar.py doctor --json
+    python scripts/lemo_opuscar.py list
+    python scripts/lemo_opuscar.py list --json
+    python scripts/lemo_opuscar.py plan --project my-videos --style neon-tubes
+
+Varsayılan kütüphane ~/lemo-opuscar dizinidir. Farklı dizin için her komuta **--library PATH** ekle veya **LEMO_OPUSCAR_LIBRARY** ortam değişkenini kullan.
+
+Plan yalnızca yeni bir **my-videos/work/style-plans/lemo-neon-tubes.json** dosyası oluşturur; mevcut dosyanın üzerine yazmaz. İkinci plan için **--name take-2.json** kullanılabilir. JSON, seçilen stilin adı/kategorisi, yerel orijinal STYLE.md dosyasına yol referansı, lisans notları ve insan onayı adımlarını içerir. Stil rehberinin metni kopyalanmaz. Plan video değildir, kurulumu başlatmaz ve onay anlamına gelmez.
+
+## Harici üretimden Workbench'e dönüş
+
+Lemo ile gerçek film yapmayı seçersen [orijinal kurulum ve kullanım yönergelerini](https://github.com/lemomo-ai/lemo-opuscar#install) incele. Bu, Workbench'in hızlı yerel faceless render komutundan ayrı bir uygulamadır. Upstream Node 20+, Python 3.11+, FFmpeg 7+ ve uygun bir kodlama ajanı ister; bazı stiller resim üretme aracı da gerektirebilir.
+
+Lemo tarafından ayrı üretilmiş, hakları sana ait bir MP4 dosyasını örneğin **my-videos/work/external/lemo-opuscar/film.mp4** konumuna **elle** yerleştir. Sonra:
+
+    python scripts/external_handoff.py --project my-videos --tool lemo-opuscar --mode faceless --kind rendered-video --asset work/external/lemo-opuscar/film.mp4 --out work/handoffs/lemo-film.json --provenance "Local Lemo production; rights reviewed"
+
+Bu işlem sadece mevcut MP4'ü FFprobe ile kontrol eder ve **pending-human-review**, **approved: false** bir manifest oluşturur. Video otomatik olarak timeline'a girmez ve final sayılmaz. İnsan onayından sonra mevcut Workbench kurgu/EDL sürecine açıkça dahil edilebilir. Aynı manifest dosyasının üzerine yazılmaz.
+
+## Lisans, maliyet ve sınırlar
+
+- Upstream'in kendi kodu MIT, Markdown stil rehberleri ve promptları **CC BY-NC 4.0** kapsamındadır. Orijinal lisans film yapımına yönelik sınırlı ek izin sunar; rehberleri genel amaçlı ticari bir üründe yeniden dağıtma izni vermez. Stil rehberleri ve demo medyaları bu repoya alınmaz.
+- Üçüncü taraf ses/görsel/font ve karakterler ayrı haklarla korunabilir. Ticari kullanım öncesi [upstream LICENSE](https://github.com/lemomo-ai/lemo-opuscar/blob/main/LICENSE) ve ilgili CREDITS belgelerini incele.
+- Bu adaptör **hiçbir ağ isteği, otomatik indirme, kurulum, ücretli API/model çağrısı, medya yükleme veya video render** işlemi yapmaz.
+- Entegrasyon yalnızca stil tabanlı yeni film (**faceless**) için tasarlanmıştır; mevcut çekimi kesme/yeniden kadrajlama yerine geçmez. Basit işler için Workbench'in yerel modu varsayılan kalır.
+- Testler: **python -m unittest discover -s tests -v**. Yerel kütüphane varsa **python scripts/lemo_opuscar.py doctor --json**.
