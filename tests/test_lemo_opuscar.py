@@ -7,7 +7,7 @@ from pathlib import Path
 
 SCRIPTS = Path(__file__).resolve().parents[1] / "scripts"
 sys.path.insert(0, str(SCRIPTS))
-from lemo_opuscar import local_styles, make_plan, read_library
+from lemo_opuscar import local_styles, make_plan, read_library, search_styles
 
 
 class LemoOpuscarTests(unittest.TestCase):
@@ -26,6 +26,26 @@ class LemoOpuscarTests(unittest.TestCase):
         }), encoding="utf-8")
         self.project = root / "project"
         (self.project / "work").mkdir(parents=True)
+
+    def test_keyword_search_is_local_and_not_a_semantic_recommendation(self):
+        styles = local_styles(read_library(self.library))
+        self.assertEqual([s["slug"] for s in search_styles(styles, "neon")],
+                         ["neon-tubes"])
+        self.assertEqual([s["slug"] for s in search_styles(styles, "Light")],
+                         ["neon-tubes"])
+        self.assertEqual(search_styles(styles, "watercolor"), [])
+        with self.assertRaises(ValueError):
+            search_styles(styles, "")
+        with self.assertRaises(ValueError):
+            search_styles(styles, "neon", 0)
+
+        cmd = [sys.executable, str(SCRIPTS / "lemo_opuscar.py"), "search",
+               "--library", str(self.library), "--query", "neon", "--json"]
+        result = subprocess.run(cmd, capture_output=True, text=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        response = json.loads(result.stdout)
+        self.assertEqual(response["match_type"], "keyword-only")
+        self.assertEqual(response["matches"][0]["slug"], "neon-tubes")
 
     def test_local_style_index_and_non_destructive_plan(self):
         lib = read_library(self.library)
