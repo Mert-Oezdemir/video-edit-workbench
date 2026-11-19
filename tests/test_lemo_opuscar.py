@@ -63,6 +63,17 @@ class LemoOpuscarTests(unittest.TestCase):
             make_plan(self.project, lib, "neon-tubes")
         self.assertEqual(json.loads(output.read_text(encoding="utf-8")), plan)
 
+    def test_style_plan_targets_existing_workbench_mode(self):
+        filename = make_plan(self.project, self.library, "neon-tubes",
+                             "intro.json", mode="own-footage")
+        data = json.loads(filename.read_text(encoding="utf-8"))
+        self.assertEqual(data["mode"], "own-footage")
+        self.assertFalse(data["approved"])
+        self.assertTrue(any("production.json" in x for x in data["next_steps"]))
+        with self.assertRaises(ValueError):
+            make_plan(self.project, self.library, "neon-tubes",
+                      "wrong.json", mode="alternate-mode")
+
     def test_reject_traversal_unknown_style_and_missing_project(self):
         for style in ("../../outside", "neon-tubes/../../outside", "missing"):
             with self.assertRaises(ValueError):
@@ -90,7 +101,7 @@ class LemoOpuscarTests(unittest.TestCase):
             self.assertIn("neon-tubes" if command == "list" else "styles_found", p.stdout)
         p = subprocess.run([sys.executable, str(script), "plan",
                             "--library", str(self.library), "--project", str(self.project),
-                            "--style", "neon-tubes", "--name", "custom.json"],
+                            "--style", "neon-tubes", "--name", "custom.json", "--mode", "own-footage"],
                            capture_output=True, text=True)
         self.assertEqual(p.returncode, 0, p.stderr)
         self.assertTrue((self.project / "work" / "style-plans" / "custom.json").is_file())
