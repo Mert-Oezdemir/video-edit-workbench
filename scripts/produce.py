@@ -8,6 +8,7 @@ import argparse
 import hashlib
 import json
 import math
+import re
 import shutil
 import subprocess
 import sys
@@ -67,6 +68,35 @@ def probe(path):
                                "-show_streams", "-show_format", "-of", "json", str(path)], timeout=45))
 
 
+
+def validate_visual_component(root, item, path):
+    """Treat an external Lemo clip as one native, reviewable timeline segment."""
+    data = item.get("visual_component")
+    if data is None:
+        return None
+    if (not isinstance(data, dict) or set(data) != {"tool", "style", "handoff"}
+            or data.get("tool") != "lemo-opuscar"
+            or not isinstance(data.get("style"), str)
+            or not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", data["style"])):
+        raise ValueError("visual_component needs tool=lemo-opuscar, style slug and handoff")
+    manifest_file = local_file(root, data["handoff"])
+    if manifest_file.suffix != ".json" or manifest_file.parent != (root / "work" / "handoffs").resolve():
+        raise ValueError("Visual component handoff must be project/work/handoffs/*.json")
+    if manifest_file.stat().st_size > 1024 * 1024:
+        raise ValueError("Visual component handoff is too large")
+    manifest = json.loads(manifest_file.read_text(encoding="utf-8"))
+    if (not isinstance(manifest, dict)
+            or manifest.get("tool") != "lemo-opuscar"
+            or manifest.get("kind") != "rendered-video"
+            or manifest.get("file") != path.relative_to(root).as_posix()
+            or manifest.get("review_status") != "pending-human-review"
+            or manifest.get("approved") is not False):
+        raise ValueError("Lemo component requires matching, unapproved local video handoff")
+    if path.suffix.lower() not in {".mp4", ".mov", ".mkv", ".webm"}:
+        raise ValueError("Lemo visual component must be a video, not a still image")
+    return {"tool": data["tool"], "style": data["style"], "handoff": manifest_file}
+
+
 def load_job(root):
     raw = json.loads((root / "production.json").read_text(encoding="utf-8-sig"))
     allowed = {"schema_version", "mode", "segments", "narration", "captions", "framing"}
@@ -79,11 +109,14 @@ def load_job(root):
     segments = raw.get("segments")
     if not isinstance(segments, list) or not 1 <= len(segments) <= 200:
         raise ValueError("Provide 1..200 reviewed segments")
-    media, total = [], 0
+    media, total, handoffs = [], 0, set()
     for item in segments:
-        if not isinstance(item, dict) or set(item) - {"source", "start", "duration"}:
+        if not isinstance(item, dict) or set(item) - {"source", "start", "duration", "visual_component"}:
             raise ValueError("Segment fields: source, start, duration")
         path = local_file(root, item.get("source"))
+        component = validate_visual_component(root, item, path)
+        if component:
+            handoffs.add(component["handoff"])
         start = number(item.get("start", 0), "start")
         duration = number(item.get("duration"), "duration", True)
         if duration > 3600 or total + duration > 7200:
@@ -100,7 +133,8 @@ def load_job(root):
             if not math.isfinite(length) or start + duration > length + .02:
                 raise ValueError("Segment exceeds source duration: " + str(path))
         media.append({"path": path, "start": start, "duration": duration, "image": image,
-                      "audio": any(s.get("codec_type") == "audio" for s in streams)})
+                      "audio": any(s.get("codec_type") == "audio" for s in streams),
+                      "visual_component": component})
         total += duration
     narration = None
     if raw.get("narration") is not None:
@@ -124,7 +158,7 @@ def load_job(root):
         if not start < end <= total or not isinstance(cue["text"], str) or not cue["text"].strip():
             raise ValueError("Invalid caption text or output-timeline bounds")
         words.append([start, end, cue["text"]])
-    files = {m["path"] for m in media}
+    files = {m["path"] for m in media} | handoffs
     if narration:
         files.add(narration)
     fingerprint = hashlib.sha256(json.dumps(raw, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
