@@ -39,6 +39,14 @@ provider-neutral; no Claude dependency or mandatory paid API.
   Use `python scripts/video_tool_stack.py plan --mode MODE` as an advisory
   routing plan. The CLI never installs tools or spends credits; review the plan
   and only use optional tools when the existing editor cannot meet the need.
+- For original **faceless** code-generated films, the optional Lemo-Opuscar
+  adapter is documented in reference/lemo-opuscar.md. Run
+  `python scripts/lemo_opuscar.py list` only against a user-managed local
+  checkout; `plan --project PROJECT --style SLUG` creates a non-approved
+  JSON reference. Never auto-clone, run its renderer, copy its CC BY-NC style
+  guides, imply commercial redistribution rights, or merge its MP4 into an
+  EDL without explicit user review. For a finished authorized local film,
+  use existing external_handoff.py with `--tool lemo-opuscar --mode faceless`.
 - No external provider keys, paid Higgsfield/HeyGen generation, HyperFrames Pro,
   cloud rendering, or subscription API calls in a zero-extra-spend workflow.
   A coding-agent subscription does not imply free API access. Ghost Editor and
