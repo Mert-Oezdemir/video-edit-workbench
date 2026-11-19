@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "checked_on": "2026-11-18",
+  "checked_on": "2026-11-19",
   "purpose": "Optional video tooling inventory; NOT installed packages or verified integrations",
   "modes": [
     "long-to-shorts",
@@ -230,6 +230,22 @@
       "enabled_by_default": false
     },
     {
+      "id": "lemo-opuscar",
+      "name": "Lemo-Opuscar",
+      "url": "https://github.com/lemomo-ai/lemo-opuscar",
+      "license": "MIT (code); CC BY-NC 4.0 (docs); third-party asset terms vary",
+      "modes": [
+        "faceless"
+      ],
+      "policy": "existing-subscription",
+      "role": "Optional code-generated film style library; local style index and review-only plan",
+      "availability": {
+        "type": "manual"
+      },
+      "note": "Read-only local style adapter scripts/lemo_opuscar.py is implemented; actual film production needs separate upstream setup/Claude Code, Node 20+, FFmpeg 7+, Python 3.11+; no auto-run or copying CC BY-NC style guides. Review commercial use, third-party rights and provider costs.",
+      "enabled_by_default": false
+    },
+    {
       "id": "higgsfield-skills",
       "name": "Higgsfield AI Skills / Editorial Motion Graphics",
       "url": "https://github.com/higgsfield-ai/skills",
@@ -287,6 +303,13 @@
           "openmontage"
         ],
         "action": "Optional local workflow planning; use rights-cleared stock, original media or assets only."
+      },
+      {
+        "step": "optional-film-style",
+        "tools": [
+          "lemo-opuscar"
+        ],
+        "action": "For a new code-generated film, inspect a locally installed Lemo style and prepare a non-approved style plan only; upstream generation and finished MP4 handoff remain manual."
       },
       {
         "step": "media-and-voice",
