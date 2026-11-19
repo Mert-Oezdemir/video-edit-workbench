@@ -1,6 +1,6 @@
 # Lemo-Opuscar: AI agent karar ve çalışma kılavuzu
 
-**Status: a supported read-only optional adapter, NOT an automatic film renderer.**
+**Status: native Workbench visual-content segment support + safe style discovery; NOT an automatic Lemo film renderer.**
 This is the concrete routing contract for an AI coding agent using Video Edit Workbench. Read [AGENTS.md](../AGENTS.md), [AI_START.md](../AI_START.md), [agent capabilities](agent-capabilities.md), [editorial intake](editorial-intake.md) and [Lemo integration instructions](lemo-opuscar.md). The commands below run from the Workbench repo root, unless explicitly stated otherwise.
 
 ## 1. What is actually possible?
@@ -15,7 +15,7 @@ This is the concrete routing contract for an AI coding agent using Video Edit Wo
 | Save chosen style and next steps | lemo_opuscar.py plan (new JSON, approved: false) | Executable read-only/non-destructive adapter |
 | Render a Lemo film, make bespoke WebGL/Canvas/code visuals, camera moves, animation, narrated film | Use *upstream Lemo-Opuscar* in a separate environment following its official workflow if independently set up/authorized | **NOT integrated/executed by Workbench adapter** |
 | Register an already rendered, owned/authorized local MP4 | external_handoff.py --tool lemo-opuscar --mode faceless | Executable **metadata/review handoff only** |
-| Import MP4 automatically into approved EDL or produce final | No direct bridge; explicit manual timeline/production decision needed | **NOT implemented** |
+| Compose Lemo MP4 as part of Workbench's regular video timeline | Add a reviewed visual_component segment to production.json, then use produce.py preview/final approval | **Implemented native media composition**, not upstream film generation |
 | Upload to social media, buy credits, run hosted models, automatically download dependencies | Never through this adapter | **NOT implemented; forbidden by default policy** |
 
 A style is a production approach, not an FFmpeg filter that can be applied with one command to arbitrary existing footage. Lemo primarily creates original **films in code**, while Workbench defaults to editing/composing **local** media. Do not promise that selecting a Lemo style automatically transforms an imported clip into that style.
@@ -28,7 +28,7 @@ Determine whether the user is asking for an **existing-video edit**, an **origin
 2. **"Videomdaki sessizlikleri kaldır, altyazı ekle."** Use Workbench edit / accurate cut pipeline. Lemo is not a silence-removal tool.
 3. **"Kahve markam için Neon Tubes tarzında animasyonlu bir açılış filmi yap."** Lemo is a relevant *optional production path*. Run local style discovery/plan; clearly distinguish plan from completed film. Upstream execution is separate.
 4. **"Lemo'da hangi görsel tarzlar var, eğitim videosuna hangisi uygun?"** Read local metadata via list/search and use specific STYLE.md references to offer up to three candidates, explain their subject fit and actual prerequisites. No automatic rendering.
-5. **"Mevcut konuşma videoma 5 saniyelik özel kod animasyonunu ekle."** A hybrid: edit original in Workbench; externally produce licensed code-generated motion snippet if required and available; register its MP4 via external_handoff.py; only after review manually integrate it. No automatic EDL rewrite.
+5. **"Mevcut konuşma videoma 5 saniyelik özel kod animasyonunu ekle."** A hybrid: edit original in Workbench; externally produce licensed code-generated motion snippet if required and available; register its MP4 via external_handoff.py; manually include it as a visual_component segment in production.json and preview the combined edit. No automatic EDL rewrite.
 6. **"Tamamen ücretsiz ve internete hiçbir şey göndermeden yap."** Choose existing local FFmpeg/typographic faceless/own-footage path first. An optional local Lemo checkout does not prove its upstream dependencies, fonts, TTS or models are offline. Don't silently run upstream.
 7. **"Sinematik film istiyorum ama stil bilmiyorum."** From the brief (story vs. documentary, brand tone, desired visuals), use list/search to shortlist. Do not give a fabricated final-quality score or pretend the adapter can auto-render.
 
@@ -111,9 +111,9 @@ python scripts/external_handoff.py \
   --provenance "Locally produced with Lemo; verified source rights"
 ~~~
 
-**What this does:** local ffprobe checks the presence of a video track and records metadata. A new manifest says pending-human-review, approved: false. **What it does not do:** render, assess aesthetic quality/licensing, edit an EDL, publish, convert formats or approve a final film.
+**What this does:** local ffprobe checks the presence of a video track and records metadata. A new manifest says pending-human-review, approved: false. **What it does not do:** assess aesthetic quality/licensing, automatically change production.json or an EDL, publish, convert formats or approve a final film. **After** registering it, an agent may intentionally add a visual_component segment to production.json; Workbench itself will then render that video alongside the existing footage.
 
-For the next step, show the preview, inspect true aspect ratio, duration, frame rate, audio/sync, subtitles, visual artifacts and source provenance. Obtain explicit editorial approval before any hand-selected import or montage. If a reviewed timeline is subsequently built with produce.py, follow [production.md](production.md) for its separate preview hash approval and final. **Do not pass --approve-preview unless the user has approved that exact preview.**
+For the next step, add the visual_component to the existing production.json as shown in [production.md](production.md#lemo-opuscar-görsel-içerik-parçası-yerel-workbench-timeline). Then render a combined preview and inspect true aspect ratio, duration, frame rate, audio/sync, subtitles, visual artifacts and source provenance. Obtain explicit editorial approval before any hand-selected import or montage. If a reviewed timeline is subsequently built with produce.py, follow [production.md](production.md) for its separate preview hash approval and final. **Do not pass --approve-preview unless the user has approved that exact preview.**
 
 ## 7. Agent user-facing response contract
 
@@ -150,4 +150,4 @@ Keep any use of these terms descriptive; there is no protocol exchanging these s
 
 ### Quick rule for autonomous agents
 
-> First inspect the user's intent, local resources, rights, cost constraints and media. Prefer the existing Workbench workflow for ordinary editing. For a specifically requested code-generated film, read this guide, search a *local* Lemo library, inspect the selected original STYLE.md, create a **nonapproved** plan, explain prerequisites and separate production, then safely review any actual exported MP4 through external_handoff.py. Never confuse style selection, plan generation, software installation, film rendering and final approval.
+> First inspect the user's intent, local resources, rights, cost constraints and media. Prefer the existing Workbench workflow for ordinary editing. For a specifically requested code-generated film, read this guide, search a *local* Lemo library, inspect the selected original STYLE.md, create a **nonapproved** plan, explain prerequisites and separate production, then safely review any actual exported MP4 through external_handoff.py. Never confuse style selection, plan generation, native timeline composition, separate film rendering and final approval.
