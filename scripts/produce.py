@@ -69,7 +69,7 @@ def probe(path):
 
 
 
-def validate_visual_component(root, item, path):
+def validate_visual_component(root, item, path, mode):
     """Treat an external Lemo clip as one native, reviewable timeline segment."""
     data = item.get("visual_component")
     if data is None:
@@ -88,6 +88,8 @@ def validate_visual_component(root, item, path):
     if (not isinstance(manifest, dict)
             or manifest.get("tool") != "lemo-opuscar"
             or manifest.get("kind") != "rendered-video"
+            or manifest.get("mode") != mode
+            or manifest.get("schema_version") != 1
             or manifest.get("file") != path.relative_to(root).as_posix()
             or manifest.get("review_status") != "pending-human-review"
             or manifest.get("approved") is not False):
@@ -114,7 +116,7 @@ def load_job(root):
         if not isinstance(item, dict) or set(item) - {"source", "start", "duration", "visual_component"}:
             raise ValueError("Segment fields: source, start, duration")
         path = local_file(root, item.get("source"))
-        component = validate_visual_component(root, item, path)
+        component = validate_visual_component(root, item, path, raw["mode"])
         if component:
             handoffs.add(component["handoff"])
         start = number(item.get("start", 0), "start")
