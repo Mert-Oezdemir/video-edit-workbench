@@ -88,7 +88,7 @@ This is a **read-only, provider-neutral planner**: tools are not silently instal
 
 ### Lemo-Opuscar stil keşfi (isteğe bağlı)
 
-[Lemo-Opuscar](https://github.com/lemomo-ai/lemo-opuscar) için ayrı bir **yerel stil kütüphanesi adaptörü** mevcut. 99 stilin rehberleri bu repoya kopyalanmaz; yerel klondaki stil metadatası listelenir ve `faceless` modu için yalnızca insan onayı bekleyen plan hazırlanır. Upstream film üretimi otomatik kurulmaz/başlatılmaz.
+[Lemo-Opuscar](https://github.com/lemomo-ai/lemo-opuscar) için ayrı bir **yerel stil kütüphanesi adaptörü** mevcut. 99 stilin rehberleri bu repoya kopyalanmaz; yerel klondaki stil metadatası listelenir ve `faceless` modu için yalnızca insan onayı bekleyen plan hazırlanır. Upstream film üretimi otomatik kurulmaz/başlatılmaz; ancak ayrı üretilmiş Lemo klipleri Workbench'in **mevcut production.json içindeki visual_component segmenti** olarak yerel preview/final render'a katılır.
 
 ```sh
 python scripts/lemo_opuscar.py doctor --json
@@ -97,7 +97,7 @@ python scripts/lemo_opuscar.py search --query "explainer" --json
 python scripts/lemo_opuscar.py plan --project my-videos --style neon-tubes
 ```
 
-Önce Lemo-Opuscar'ı ayrı bir yerel klasöre manuel olarak edinmelisin. Ajanın **ne zaman / nasıl / neler yapabileceği**: [karar ve üretim kılavuzu](reference/lemo-opuscar-agent-workflow.md). Ayrıntılar, lisans uyarıları (stil rehberleri **CC BY-NC 4.0**) ve mevcut `external_handoff.py` ile video inceleme adımları: [Lemo-Opuscar entegrasyon rehberi](reference/lemo-opuscar.md).
+Önce Lemo-Opuscar'ı ayrı bir yerel klasöre manuel olarak edinmelisin. Ajanın **ne zaman / nasıl / neler yapabileceği**: [karar ve üretim kılavuzu](reference/lemo-opuscar-agent-workflow.md). [Workbench timeline bileşeni örneği](reference/production.md#lemo-opuscar-görsel-içerik-parçası-yerel-workbench-timeline). Ayrıntılar, lisans uyarıları (stil rehberleri **CC BY-NC 4.0**) ve mevcut `external_handoff.py` ile video inceleme adımları: [Lemo-Opuscar entegrasyon rehberi](reference/lemo-opuscar.md).
 
 ## Executable three-mode production (local, no API)
 
