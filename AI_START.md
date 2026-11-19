@@ -10,9 +10,17 @@ Read this file first, then [AGENTS.md](AGENTS.md), then the relevant mode guide 
 |---|---|---|
 | Long source video into Shorts | `python workbench.py shorts --project PROJECT --input src/recording.mp4 --srt src/subs.srt` | Need SRT, local Whisper (explicit model download), or reviewed selections. Suggested clips are NOT guaranteed viral |
 | Faceless generated content | `python workbench.py faceless --project PROJECT --script src/script.txt` | Default output is **silent typography-based MP4**; add licensed images/audio/Piper for narration |
+| Original code-generated film in a Lemo style | `python scripts/lemo_opuscar.py search --query "explainer" --json` (local metadata), then `plan --project PROJECT --style SLUG` | **Planning only**; upstream Lemo rendering is separate, requires compatible agent/dependencies and rights review |
 | Personal footage edit | `python workbench.py edit --project PROJECT --input src/take.mp4 --format portrait` | Fast cut/reframe; for word-accurate cutting/retakes use existing low-token editor |
 
 For machine-readable inventory use `python workbench.py tools --json`; for a **non-executing** optional tool recommendation use `python scripts/video_tool_stack.py plan --mode faceless` (other modes: `long-to-shorts`, `own-footage`). Consult [registry](reference/video-tool-registry.json) for licenses, permissions, integration status and cost classification. Avoid upgrading to paid/cloud features.
+
+For code-generated original film, named Lemo style, or short custom animated
+intro, read the **[complete agent decision and workflow guide](reference/lemo-opuscar-agent-workflow.md)**:
+distinguish existing-clip editing from original film production; select a style
+by local metadata; preview and approve external MP4 before importing it.
+For local discovery use `python scripts/lemo_opuscar.py search --query
+"explainer" --json`. These commands do not produce a Lemo movie.
 
 Optional creative style choice for original faceless films: [Lemo-Opuscar guide](reference/lemo-opuscar.md). `scripts/lemo_opuscar.py` lists locally installed styles and writes a review-only plan; it does not install, generate a movie or grant rights to redistribute CC BY-NC guides.
 
