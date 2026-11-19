@@ -45,13 +45,34 @@ For long recordings to Shorts, faceless Shorts and own-footage editing, consult
 [registry](reference/video-tool-registry.json) covers the free/local repos discussed
 (FFmpeg/FFmpeg Skill, Faster Whisper, Auto-Editor, Claude Shorts, Ghost Editor,
 OpenMontage, rea-video, HyperFrames, Remotion, Piper, ComfyUI and Higgsfield
-Skills). Run `python scripts/video_tool_stack.py plan --mode long-to-shorts`
+Skills, Lemo-Opuscar). Run `python scripts/video_tool_stack.py plan --mode long-to-shorts`
 (or `faceless` / `own-footage`) for a read-only advisory plan. These are
 **not preinstalled or production-tested direct adapters**; reuse existing local
 tools first and test a short handoff before using an external pipeline. In a
 zero-extra-spend request, do not call paid providers, buy credits, run cloud
 render or silently enable Pro-only features. Higgsfield hosted generation is
 blocked; check third-party licenses and provider conditions separately.
+
+## Lemo-Opuscar — optional original-film style route
+
+When the user asks for an **original coded film**, named Lemo-Opuscar style,
+stylized explainer, animated branded opener or code-rendered scene, read
+[reference/lemo-opuscar-agent-workflow.md](reference/lemo-opuscar-agent-workflow.md)
+and [reference/lemo-opuscar.md](reference/lemo-opuscar.md). This route does
+**not** replace `workbench.py edit` or `shorts` for existing footage.
+
+First detect the local checkout with `python scripts/lemo_opuscar.py doctor
+--json`. Use `list --json` for all local styles or `search --query
+"explainer" --json` for keyword matches. Read the matching upstream STYLE.md
+locally, explain suitability, prerequisites, licensing and alternatives.
+`plan --project PROJECT --style SLUG` writes a nonapproved plan, **not a film**.
+Style guides are upstream CC BY-NC; do not copy them into this MIT repo.
+Upstream rendering is **separate and not auto-invoked**; only register an
+actual existing rights-cleared MP4 using `scripts/external_handoff.py` with
+`--tool lemo-opuscar --mode faceless --kind rendered-video`. Handoff needs
+human review; it does not alter an EDL, grant publishing approval or prove
+a visually correct Lemo render. Do not automatically install third-party
+packages, upload media, call paid services or assume any external tool works.
 
 ## Optional provider-neutral rough-cut mode
 
