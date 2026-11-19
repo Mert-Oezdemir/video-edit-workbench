@@ -30,7 +30,8 @@ Mevcut yerel klonu kullanarak:
     python scripts/lemo_opuscar.py doctor --json
     python scripts/lemo_opuscar.py list
     python scripts/lemo_opuscar.py list --json
-    python scripts/lemo_opuscar.py plan --project my-videos --style neon-tubes
+    python scripts/lemo_opuscar.py plan --project my-videos --style neon-tubes --mode own-footage
+    # --mode için long-to-shorts, faceless veya own-footage kullanılabilir.
 
 Varsayılan kütüphane ~/lemo-opuscar dizinidir. Farklı dizin için her komuta **--library PATH** ekle veya **LEMO_OPUSCAR_LIBRARY** ortam değişkenini kullan.
 
