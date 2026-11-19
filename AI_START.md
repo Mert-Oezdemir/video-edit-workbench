@@ -14,11 +14,13 @@ Read this file first, then [AGENTS.md](AGENTS.md), then the relevant mode guide 
 
 For machine-readable inventory use `python workbench.py tools --json`; for a **non-executing** optional tool recommendation use `python scripts/video_tool_stack.py plan --mode faceless` (other modes: `long-to-shorts`, `own-footage`). Consult [registry](reference/video-tool-registry.json) for licenses, permissions, integration status and cost classification. Avoid upgrading to paid/cloud features.
 
+Optional creative style choice for original faceless films: [Lemo-Opuscar guide](reference/lemo-opuscar.md). `scripts/lemo_opuscar.py` lists locally installed styles and writes a review-only plan; it does not install, generate a movie or grant rights to redistribute CC BY-NC guides.
+
 ## Agent operating contract
 
 1. Discover `python workbench.py --help` and run `python workbench.py doctor --json`. If local FFmpeg missing, explain exactly what is missing; **do not invent a completed MP4**.
 2. Inspect existing project and media. If project not initialized, choose a new path and run `python workbench.py init PROJECT`. Do not overwrite an existing project or video.
-3. For narration/visuals check source rights and creator preferences. Choose a simple local method first; do not install all 13 optional projects. If a source is a YouTube/stream URL, do not automatically download it; request authorized local source or a rights-cleared alternative.
+3. For narration/visuals check source rights and creator preferences. Choose a simple local method first; do not install all 14 catalog entries. If a source is a YouTube/stream URL, do not automatically download it; request authorized local source or a rights-cleared alternative.
 4. For Shorts, use local SRT if available. If using Faster Whisper, run under existing subscription/code permissions and **explicitly authorize model download** only when the user has allowed it. Never treat a coding-agent subscription as free inference API access.
 5. For an AI-reviewed moment selection, ask the user/agent to examine `--plan-only` JSON and **edit the clip timings**. Supply selections via `--selections out/video-shorts-plan.json`. Keep selected source unchanged.
 6. For faceless video, the current agent can write original `src/script.txt`, then run the local renderer. A computer-generated caption video is not the same as text-to-video diffusion. To use ComfyUI or HyperFrames review their standalone requirements; no automatic bridge is claimed.
@@ -32,7 +34,7 @@ For machine-readable inventory use `python workbench.py tools --json`; for a **n
 ## Tool statuses (do not overclaim)
 
 - **Wired baseline:** FFmpeg/FFprobe; optional installed Faster Whisper; runnable `shorts`, `faceless` and `edit` commands.
-- **Read-only registry + recommendations:** FFmpeg Skill, Claude Shorts, Ghost Editor, OpenMontage, rea-video, HyperFrames, Remotion, ComfyUI, Auto-Editor, Piper, Higgsfield Skills. They do **not** become embedded by appearing in the catalog.
+- **Read-only registry + recommendations:** FFmpeg Skill, Claude Shorts, Ghost Editor, OpenMontage, rea-video, HyperFrames, Remotion, ComfyUI, Auto-Editor, Piper, Higgsfield Skills, Lemo-Opuscar. They do **not** become embedded by appearing in the catalog.
 - **Local interoperability:** `scripts/external_handoff.py` can register an already existing output for review, but does not launch a third-party repo or rewrite the editor timeline.
 - **Costs:** Hosted Higgsfield calls blocked, HeyGen/HyperFrames Pro disabled, no cloud renderer or paid API.
 - **Original project retained:** AGENTS, SKILL, Python/NumPy/Whisper cutting, verification, GSAP/Three.js, EDL, original documentation.
