@@ -69,8 +69,11 @@ locally, explain suitability, prerequisites, licensing and alternatives.
 Style guides are upstream CC BY-NC; do not copy them into this MIT repo.
 Upstream rendering is **separate and not auto-invoked**; only register an
 actual existing rights-cleared MP4 using `scripts/external_handoff.py` with
-`--tool lemo-opuscar --mode faceless --kind rendered-video`. Handoff needs
-human review; it does not alter an EDL, grant publishing approval or prove
+`--tool lemo-opuscar --mode MODE --kind rendered-video` (MODE is the existing
+Workbench job mode). Then include it in the **same** `production.json` as a
+`visual_component` segment; `scripts/produce.py` previews/renders it alongside
+other project clips. It is not a competing production mode. Handoff needs
+human review; it does not silently alter an EDL, grant publishing approval or prove
 a visually correct Lemo render. Do not automatically install third-party
 packages, upload media, call paid services or assume any external tool works.
 
