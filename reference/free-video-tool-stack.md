@@ -36,7 +36,7 @@ not a hosted text-to-video model.
 | [Remotion](https://github.com/remotion-dev/remotion) | React-based animation and captions | Source-available license; free use depends on eligibility. Check current terms | **Alternative renderer** |
 | [Piper TTS](https://github.com/rhasspy/piper) | Local voiceover | Linked upstream is **archived**; voices have individual licenses | **Optional TTS; maintained distribution recommended** |
 | [ComfyUI](https://github.com/Comfy-Org/ComfyUI) | Local AI image and, with suitable models, video generation | Free software; significant GPU/VRAM needs, model license varies | **Optional asset generator** |
-| [Lemo-Opuscar](https://github.com/lemomo-ai/lemo-opuscar) | 99 code-generated film styles and local style discovery | Code MIT; style guides CC BY-NC 4.0; check rights and upstream runtime separately | **Local style reader + review-only plan**, no auto-render |
+| [Lemo-Opuscar](https://github.com/lemomo-ai/lemo-opuscar) | Optional code-generated visual scenes for any Workbench timeline | Code MIT; style guides CC BY-NC 4.0; upstream film creation requires separate setup | **Local style discovery + reviewed native production.json visual_component**; no auto-upstream generation |
 | [Higgsfield Skills](https://github.com/higgsfield-ai/skills) | Connect AI agents to Higgsfield generation | MIT skill source is free; the Higgsfield service uses credits | **BLOCKED in no-extra-spend mode** |
 
 **Not eligible as unrestricted free services:** OpusClip, Descript, ChatCut and hosted Higgsfield/HeyGen generation were discussed as alternatives, not installed free dependencies. They may offer trials or limited free plans, but the zero-extra-cost route must not rely on those. The original [claude-video-edit](https://github.com/YildizDikme/claude-video-edit) upstream is credited in the root README; this fork already contains its workflow.
@@ -94,7 +94,7 @@ Create `work/` before requesting an output file. An existing plan is *never over
 
 ## Lemo-Opuscar: licensed style selection and manual video handoff
 
-For a new code-generated faceless short, `scripts/lemo_opuscar.py` can inspect a **separately installed, local** Lemo-Opuscar library, list available styles and write a non-destructive JSON plan. The adapter does not execute upstream Claude Code plugins or render a movie. Follow [the opt-in guide](lemo-opuscar.md) for commands, CC BY-NC style-guide licensing, safe paths and registering a finished local MP4 with `external_handoff.py --tool lemo-opuscar --mode faceless`. The original FFmpeg faceless baseline remains the default.
+For a visual intro, animation, explainer insert or original scene within **any** Workbench production mode, `scripts/lemo_opuscar.py` can inspect a **separately installed, local** Lemo-Opuscar library, list available styles and write a non-destructive JSON plan. The adapter does not execute upstream Claude Code plugins or create a Lemo film. **The Workbench renderer does, however, now compose an existing Lemo MP4 as a native `visual_component` segment in the regular `production.json`**. Follow [the opt-in guide](lemo-opuscar.md) and [native timeline example](production.md#lemo-opuscar-görsel-içerik-parçası-yerel-workbench-timeline) for commands, licenses and `external_handoff.py --tool lemo-opuscar --mode MODE`. The original FFmpeg editing paths remain the default for ordinary cuts.
 
 ## Optional installation / isolated experiments (NOT automatic)
 
