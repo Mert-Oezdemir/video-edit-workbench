@@ -88,7 +88,7 @@ This is a **read-only, provider-neutral planner**: tools are not silently instal
 
 ### Lemo-Opuscar stil keşfi (isteğe bağlı)
 
-[Lemo-Opuscar](https://github.com/lemomo-ai/lemo-opuscar) için ayrı bir **yerel stil kütüphanesi adaptörü** mevcut. 99 stilin rehberleri bu repoya kopyalanmaz; yerel klondaki stil metadatası listelenir ve `faceless` modu için yalnızca insan onayı bekleyen plan hazırlanır. Upstream film üretimi otomatik kurulmaz/başlatılmaz; ancak ayrı üretilmiş Lemo klipleri Workbench'in **mevcut production.json içindeki visual_component segmenti** olarak yerel preview/final render'a katılır.
+[Lemo-Opuscar](https://github.com/lemomo-ai/lemo-opuscar) için ayrı bir **yerel stil kütüphanesi adaptörü** mevcut. 99 stilin rehberleri bu repoya kopyalanmaz; yerel klondaki stil metadatası listelenir ve mevcut **long-to-shorts / faceless / own-footage** projesi için insan onayı bekleyen stil planı hazırlanabilir. Upstream film üretimi otomatik kurulmaz/başlatılmaz; ancak ayrı üretilmiş Lemo klipleri Workbench'in **mevcut production.json içindeki visual_component segmenti** olarak yerel preview/final render'a katılır.
 
 ```sh
 python scripts/lemo_opuscar.py doctor --json
