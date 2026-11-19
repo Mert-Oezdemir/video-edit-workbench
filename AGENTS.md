@@ -51,7 +51,9 @@ provider-neutral; no Claude dependency or mandatory paid API.
   JSON reference. Never auto-clone, run its renderer, copy its CC BY-NC style
   guides, imply commercial redistribution rights, or merge its MP4 into an
   EDL without explicit user review. For a finished authorized local film,
-  use existing external_handoff.py with `--tool lemo-opuscar --mode faceless`.
+  use existing external_handoff.py with `--tool lemo-opuscar` and the existing
+  Workbench production mode, then add it as a `visual_component` segment in
+  `production.json` and review the combined preview. It is not an alternate mode.
 - No external provider keys, paid Higgsfield/HeyGen generation, HyperFrames Pro,
   cloud rendering, or subscription API calls in a zero-extra-spend workflow.
   A coding-agent subscription does not imply free API access. Ghost Editor and
