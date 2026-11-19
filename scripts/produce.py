@@ -114,7 +114,7 @@ def load_job(root):
     media, total, handoffs = [], 0, set()
     for item in segments:
         if not isinstance(item, dict) or set(item) - {"source", "start", "duration", "visual_component"}:
-            raise ValueError("Segment fields: source, start, duration")
+            raise ValueError("Segment fields: source, start, duration, optional visual_component")
         path = local_file(root, item.get("source"))
         component = validate_visual_component(root, item, path, raw["mode"])
         if component:
