@@ -75,6 +75,25 @@ External tools can hand off an existing file through external_handoff.py.
 That creates an unapproved review manifest; it does not execute an upstream
 tool, convert its timeline or import it into the edit automatically.
 
+
+### Optional original code-rendered film styles (Lemo-Opuscar)
+
+Lemo-Opuscar is a distinct upstream project offering a library of film styles;
+it is **not** a new flag in `workbench.py faceless`. Its local style metadata can
+be listed or searched by `scripts/lemo_opuscar.py` and an unapproved style plan
+can be saved inside the Workbench project. A separately generated local video
+can be registered with `external_handoff.py` and added as a native
+`visual_component` segment to the **same** `production.json` used for the main
+edit; `scripts/produce.py` composes and renders the combined timeline.
+Lemo's upstream film-generation engine is not integrated; composition of
+existing licensed clips is.
+
+For the precise "when to use / how / what is possible / what is NOT implemented"
+decision table, prerequisites, examples and mandatory approval boundary, read
+[the agent-specific Lemo workflow](lemo-opuscar-agent-workflow.md). Default
+existing footage requests to local edit/shorts; choose Lemo only when a
+distinct original code-generated visual style is useful for the brief.
+
 ## Runtime discovery and validation
 
 Run only relevant checks. `python workbench.py doctor --json` checks the starter CLI environment.

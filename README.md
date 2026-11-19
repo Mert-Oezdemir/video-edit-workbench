@@ -29,7 +29,7 @@ Dosyaları önce `my-videos/src/` içine yerleştir. Çıktılar `out/` klasör�
 
 | Hazır ve yerel | İsteğe bağlı / ayrıca doğrulanmalı |
 |---|---|
-| FFmpeg ile kesme, kadraj, MP4, ASS/SRT, temel sessizlik temizleme; üç modun CLI'ı | FFmpeg Skill, Auto-Editor, Claude Shorts, Ghost Editor, OpenMontage, rea-video, HyperFrames, Remotion, ComfyUI, Piper |
+| FFmpeg ile kesme, kadraj, MP4, ASS/SRT, temel sessizlik temizleme; üç modun CLI'ı | FFmpeg Skill, Auto-Editor, Claude Shorts, Ghost Editor, OpenMontage, rea-video, HyperFrames, Remotion, ComfyUI, Piper, Lemo-Opuscar |
 | Ayrı gelişmiş editörde kelime hassasiyetinde kesim ve insan onaylı EDL | Üçüncü taraf projelerin otomatik kurulumu veya uçtan uca birleşmesi **yapılmadı** |
 | Mod bazlı araç kataloğu, güvenli inceleme dosyaları, ücretsiz öncelikli seçim | Higgsfield servis kredileri, HeyGen/HyperFrames Pro, ücretli model çağrıları **çalıştırılmaz** |
 
@@ -70,7 +70,7 @@ The optional [creative tools guide (Türkçe)](reference/creative-tools.md) adds
 
 ## Ücretsiz video araçları / 3 modes (on demand)
 
-For long YouTube/stream recordings → Shorts, original faceless AI-assisted Shorts and editing your own footage, see the [complete free-first stack](reference/free-video-tool-stack.md) and its [machine-readable registry](reference/video-tool-registry.json). The inventory includes **all 13 free-code/local options discussed** (FFmpeg, Faster Whisper, FFmpeg Skill, Auto-Editor, Claude Shorts, Ghost Editor, OpenMontage, rea-video, HyperFrames, Remotion, Piper TTS, ComfyUI and Higgsfield Skills), with provider and licensing caveats.
+For long YouTube/stream recordings → Shorts, original faceless AI-assisted Shorts and editing your own footage, see the [complete free-first stack](reference/free-video-tool-stack.md) and its [machine-readable registry](reference/video-tool-registry.json). The inventory includes **14 optional/core tools (the previous 13 plus Lemo-Opuscar)** (FFmpeg, Faster Whisper, FFmpeg Skill, Auto-Editor, Claude Shorts, Ghost Editor, OpenMontage, rea-video, HyperFrames, Remotion, Piper TTS, ComfyUI and Higgsfield Skills), with provider and licensing caveats.
 
 ```sh
 python scripts/video_tool_stack.py list
@@ -85,6 +85,19 @@ This writes a non-approved manifest and uses local FFprobe for videos; it
 does not automatically edit the timeline or execute external repositories.
 
 This is a **read-only, provider-neutral planner**: tools are not silently installed, media is not uploaded, and no paid model/credit or cloud render is called. Higgsfield provider generation is explicitly blocked in zero-extra-spend mode; HyperFrames Pro, Remotion license limits, OpenMontage paid adapters and the archived Piper link are documented. **These are optional integration recipes/handoffs, not preinstalled end-to-end pipelines.** The existing lightweight FFmpeg/Whisper editor remains the default.
+
+### Lemo-Opuscar stil keşfi (isteğe bağlı)
+
+[Lemo-Opuscar](https://github.com/lemomo-ai/lemo-opuscar) için ayrı bir **yerel stil kütüphanesi adaptörü** mevcut. 99 stilin rehberleri bu repoya kopyalanmaz; yerel klondaki stil metadatası listelenir ve mevcut **long-to-shorts / faceless / own-footage** projesi için insan onayı bekleyen stil planı hazırlanabilir. Upstream film üretimi otomatik kurulmaz/başlatılmaz; ancak ayrı üretilmiş Lemo klipleri Workbench'in **mevcut production.json içindeki visual_component segmenti** olarak yerel preview/final render'a katılır.
+
+```sh
+python scripts/lemo_opuscar.py doctor --json
+python scripts/lemo_opuscar.py list
+python scripts/lemo_opuscar.py search --query "explainer" --json
+python scripts/lemo_opuscar.py plan --project my-videos --style neon-tubes
+```
+
+Önce Lemo-Opuscar'ı ayrı bir yerel klasöre manuel olarak edinmelisin. Ajanın **ne zaman / nasıl / neler yapabileceği**: [karar ve üretim kılavuzu](reference/lemo-opuscar-agent-workflow.md). [Workbench timeline bileşeni örneği](reference/production.md#lemo-opuscar-görsel-içerik-parçası-yerel-workbench-timeline). Ayrıntılar, lisans uyarıları (stil rehberleri **CC BY-NC 4.0**) ve mevcut `external_handoff.py` ile video inceleme adımları: [Lemo-Opuscar entegrasyon rehberi](reference/lemo-opuscar.md).
 
 ## Executable three-mode production (local, no API)
 

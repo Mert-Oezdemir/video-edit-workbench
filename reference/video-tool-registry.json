@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "checked_on": "2026-11-18",
+  "checked_on": "2026-11-19",
   "purpose": "Optional video tooling inventory; NOT installed packages or verified integrations",
   "modes": [
     "long-to-shorts",
@@ -230,6 +230,24 @@
       "enabled_by_default": false
     },
     {
+      "id": "lemo-opuscar",
+      "name": "Lemo-Opuscar",
+      "url": "https://github.com/lemomo-ai/lemo-opuscar",
+      "license": "MIT (code); CC BY-NC 4.0 (docs); third-party asset terms vary",
+      "modes": [
+        "long-to-shorts",
+        "faceless",
+        "own-footage"
+      ],
+      "policy": "existing-subscription",
+      "role": "Optional code-generated style and motion components within Workbench video projects",
+      "availability": {
+        "type": "manual"
+      },
+      "note": "Workbench now embeds separately produced Lemo video clips as reviewed native segments in scripts/produce.py. Local style listing/planning is implemented; upstream code-based film generation still requires separate toolchain and license checks. Docs CC BY-NC 4.0; no auto-download or paid API calls.",
+      "enabled_by_default": false
+    },
+    {
       "id": "higgsfield-skills",
       "name": "Higgsfield AI Skills / Editorial Motion Graphics",
       "url": "https://github.com/higgsfield-ai/skills",
@@ -270,6 +288,13 @@
         "action": "Optional: score hooks with an existing agent session; otherwise manually select from compact transcript packet."
       },
       {
+        "step": "optional-visual-content",
+        "tools": [
+          "lemo-opuscar"
+        ],
+        "action": "For requested code-generated title/intro/visual scene only, browse local Lemo styles; after separate licensed generation, add a matching Lemo handoff as a native produce.py visual_component segment and review the preview before final."
+      },
+      {
         "step": "preview-and-export",
         "tools": [
           "ffmpeg",
@@ -287,6 +312,13 @@
           "openmontage"
         ],
         "action": "Optional local workflow planning; use rights-cleared stock, original media or assets only."
+      },
+      {
+        "step": "optional-visual-content",
+        "tools": [
+          "lemo-opuscar"
+        ],
+        "action": "Discover selected Lemo styles locally; create film-style plans when helpful. An independently generated, rights-cleared clip can become a native produce.py visual_component segment using a matching review handoff. This does not auto-run the Lemo renderer."
       },
       {
         "step": "media-and-voice",
@@ -337,6 +369,13 @@
           "rea-video"
         ],
         "action": "Analyze reference editing techniques without copying third-party content."
+      },
+      {
+        "step": "optional-visual-content",
+        "tools": [
+          "lemo-opuscar"
+        ],
+        "action": "For requested code-generated title/intro/visual scene only, browse local Lemo styles; after separate licensed generation, add a matching Lemo handoff as a native produce.py visual_component segment and review the preview before final."
       },
       {
         "step": "graphics-and-export",

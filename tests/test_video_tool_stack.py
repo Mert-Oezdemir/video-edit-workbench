@@ -14,7 +14,8 @@ from video_tool_stack import (
 ALL_NAMED = {
     "ffmpeg", "faster-whisper", "ffmpeg-skill", "auto-editor",
     "claude-shorts", "ghost-editor", "openmontage", "rea-video",
-    "hyperframes", "remotion", "piper", "comfyui", "higgsfield-skills"
+    "hyperframes", "remotion", "piper", "comfyui", "higgsfield-skills",
+    "lemo-opuscar"
 }
 MODES = {"long-to-shorts", "faceless", "own-footage"}
 

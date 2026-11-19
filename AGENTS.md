@@ -39,6 +39,21 @@ provider-neutral; no Claude dependency or mandatory paid API.
   Use `python scripts/video_tool_stack.py plan --mode MODE` as an advisory
   routing plan. The CLI never installs tools or spends credits; review the plan
   and only use optional tools when the existing editor cannot meet the need.
+- For deciding *which* requests belong to Lemo vs ordinary editing, the 99-style
+  categories, exact discovery/search/plan/handoff commands, license and
+  approval gates, read reference/lemo-opuscar-agent-workflow.md. This
+  routing contract also applies to agents launched from SKILL.md. Search is
+  keyword-only against metadata; not an AI renderer or quality rating.
+- For original **faceless** code-generated films, the optional Lemo-Opuscar
+  adapter is documented in reference/lemo-opuscar.md. Run
+  `python scripts/lemo_opuscar.py list` only against a user-managed local
+  checkout; `plan --project PROJECT --style SLUG` creates a non-approved
+  JSON reference. Never auto-clone, run its renderer, copy its CC BY-NC style
+  guides, imply commercial redistribution rights, or merge its MP4 into an
+  EDL without explicit user review. For a finished authorized local film,
+  use existing external_handoff.py with `--tool lemo-opuscar` and the existing
+  Workbench production mode, then add it as a `visual_component` segment in
+  `production.json` and review the combined preview. It is not an alternate mode.
 - No external provider keys, paid Higgsfield/HeyGen generation, HyperFrames Pro,
   cloud rendering, or subscription API calls in a zero-extra-spend workflow.
   A coding-agent subscription does not imply free API access. Ghost Editor and

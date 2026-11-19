@@ -5,7 +5,7 @@
 with local FFmpeg. See [Turkish quickstart](../QUICKSTART_TR.md) and
 [AI start](../AI_START.md). Existing high-precision cutting remains intact.
 The JSON catalog and `scripts/video_tool_stack.py plan` are still **advisory**,
-and the 13 optional upstream projects are not silently installed or integrated
+and the 14 catalog entries are not silently installed or integrated
 end-to-end. The faceless baseline is typography/media with optional local TTS,
 not a hosted text-to-video model.
 
@@ -20,7 +20,7 @@ not a hosted text-to-video model.
 - Preserve originals in `src/`. Use temporary/derived `work/` paths and reviewed `out/` outputs. Validate audio, aspect ratio, transcript, rights and cuts. Follow [editorial intake](editorial-intake.md) before production.
 - The user's target is 1080 × 1920 MP4 by default for Shorts, subject to project requirements. "Viral" is not a guaranteed or measurable output of a library.
 
-## 13 named free-code/local options from the conversation
+## 14 cataloged video tools (13 existing + Lemo-Opuscar)
 
 | Tool / upstream | Role | Zero-extra-cost limits | Workbench integration status |
 |---|---|---|---|
@@ -36,6 +36,7 @@ not a hosted text-to-video model.
 | [Remotion](https://github.com/remotion-dev/remotion) | React-based animation and captions | Source-available license; free use depends on eligibility. Check current terms | **Alternative renderer** |
 | [Piper TTS](https://github.com/rhasspy/piper) | Local voiceover | Linked upstream is **archived**; voices have individual licenses | **Optional TTS; maintained distribution recommended** |
 | [ComfyUI](https://github.com/Comfy-Org/ComfyUI) | Local AI image and, with suitable models, video generation | Free software; significant GPU/VRAM needs, model license varies | **Optional asset generator** |
+| [Lemo-Opuscar](https://github.com/lemomo-ai/lemo-opuscar) | Optional code-generated visual scenes for any Workbench timeline | Code MIT; style guides CC BY-NC 4.0; upstream film creation requires separate setup | **Local style discovery + reviewed native production.json visual_component**; no auto-upstream generation |
 | [Higgsfield Skills](https://github.com/higgsfield-ai/skills) | Connect AI agents to Higgsfield generation | MIT skill source is free; the Higgsfield service uses credits | **BLOCKED in no-extra-spend mode** |
 
 **Not eligible as unrestricted free services:** OpusClip, Descript, ChatCut and hosted Higgsfield/HeyGen generation were discussed as alternatives, not installed free dependencies. They may offer trials or limited free plans, but the zero-extra-cost route must not rely on those. The original [claude-video-edit](https://github.com/YildizDikme/claude-video-edit) upstream is credited in the root README; this fork already contains its workflow.
@@ -91,6 +92,10 @@ python scripts/video_tool_stack.py plan --mode own-footage
 
 Create `work/` before requesting an output file. An existing plan is *never overwritten*. `doctor` only reports a lightweight binary/module presence status for known tools and `not-checked` for external project installs; it **does not run or download** anything. The `plan` JSON is advisory; there is no direct cross-repository execution bridge yet.
 
+## Lemo-Opuscar: licensed style selection and manual video handoff
+
+For a visual intro, animation, explainer insert or original scene within **any** Workbench production mode, `scripts/lemo_opuscar.py` can inspect a **separately installed, local** Lemo-Opuscar library, list available styles and write a non-destructive JSON plan. The adapter does not execute upstream Claude Code plugins or create a Lemo film. **The Workbench renderer does, however, now compose an existing Lemo MP4 as a native `visual_component` segment in the regular `production.json`**. Follow [the opt-in guide](lemo-opuscar.md) and [native timeline example](production.md#lemo-opuscar-görsel-içerik-parçası-yerel-workbench-timeline) for commands, licenses and `external_handoff.py --tool lemo-opuscar --mode MODE`. The original FFmpeg editing paths remain the default for ordinary cuts.
+
 ## Optional installation / isolated experiments (NOT automatic)
 
 | Tool | Prerequisite & starting point | Caution |
@@ -103,6 +108,7 @@ Create `work/` before requesting an output file. An existing plan is *never over
 | OpenMontage | [Repo and provider docs](https://github.com/OpenMontageInc/OpenMontage); check AGPL and optional providers | Disable provider credentials and paid models |
 | Auto-Editor | [Upstream docs](https://auto-editor.com/); install in separate environment | Don't trust automatic removals without preview |
 | Piper, ComfyUI, Remotion | Follow upstream installation and individual asset/model licenses | GPU, sound model, or license constraints vary |
+| Lemo-Opuscar | [Upstream install](https://github.com/lemomo-ai/lemo-opuscar#install); separate local checkout | Claude Code-focused, Node 20+, Python 3.11+, FFmpeg 7+; docs CC BY-NC; no automatic execution |
 
 Do not copy a command from this table and run it without the safety checks in [tool-catalog.md](tool-catalog.md). Never treat a package install as equivalent to a working end-to-end integration.
 

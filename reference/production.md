@@ -35,6 +35,79 @@ python scripts/produce.py --project work/my-short final --approve-preview SHA256
 klasörünü ayrı bir yedeğe taşı; kaynakları koru. Çıktılar üzerine yazılmaz.
 Başarısız işlem parçaları inceleme için `work/production-*/` altında kalır.
 
+## Lemo-Opuscar görsel içerik parçası (yerel Workbench timeline)
+
+Lemo **rakip/alternatif mod değildir**. İster uzun videodan Shorts, ister
+faceless, ister kendi çekiminin kurgusu olsun, Workbench'in mevcut
+`production.json` sıralamasındaki **tek bir görsel sahne** olarak eklenebilir.
+İstenen stili yerel olarak bulmak için
+[ajan kılavuzu](lemo-opuscar-agent-workflow.md) ve
+[stil keşfi](lemo-opuscar.md) belgelerini kullan.
+
+Bunun için Lemo'nun kendi motorunda **önceden oluşturulmuş** yerel videonun
+proje içinde bulunması gerekir; Workbench Lemo'yu kendiliğinden çalıştırmaz.
+Örnek bir intro klibini manuel olarak
+`my-project/work/external/lemo-opuscar/intro.mp4` konumuna koyup
+mevcut `external_handoff.py` ile proje içinde doğrulama manifesti oluştur:
+
+~~~sh
+python scripts/external_handoff.py --project my-project \
+  --tool lemo-opuscar --mode own-footage --kind rendered-video \
+  --asset work/external/lemo-opuscar/intro.mp4 \
+  --out work/handoffs/lemo-intro.json \
+  --provenance "Own rights-cleared Lemo code render"
+~~~
+
+`python scripts/produce.py --project my-project init --mode own-footage`
+komutuyla mevcut projeyi oluştur; sonra `production.json` dosyasındaki
+`segments` listesine **birincil kurgu kaydıyla birlikte** şunu ekle:
+
+~~~json
+{
+  "schema_version": 1,
+  "mode": "own-footage",
+  "framing": "fit",
+  "segments": [
+    {
+      "source": "work/external/lemo-opuscar/intro.mp4",
+      "start": 0,
+      "duration": 3,
+      "visual_component": {
+        "tool": "lemo-opuscar",
+        "style": "neon-tubes",
+        "handoff": "work/handoffs/lemo-intro.json"
+      }
+    },
+    {"source": "src/own-take.mp4", "start": 0, "duration": 12}
+  ],
+  "captions": []
+}
+~~~
+
+Bu **yeni bir Workbench üretim modu değildir**: aynı `doctor → preview →
+final --approve-preview SHA256` komutları hem orijinal videoyu hem Lemo
+görsel sahnesini **tek MP4** olarak işler. Segmentler listede bulunduğu
+sırayla görünür; giriş/ara/kapanış için görsel segmenti uygun sıraya koy.
+Altyazı zamanları **tüm yeni çıktı timeline'ına** göre düzenlenmelidir; Lemo
+sahnesi eklenince mevcut altyazıların başlangıçları otomatik kaydırılmaz.
+Ses, Lemo klibinde varsa standart segment sesi olarak kullanılır; müzik,
+narration ve bölüm seviyeleri ayrıca incelenmelidir.
+
+`visual_component` alanının amacı, stilin ve harici video kaynağının
+**izlenebilirliğini ve güvenliğini doğrulamak**. Doğrudan
+`source` alanı da gerçek medyadır: Workbench onunla beraber segmentleri
+render eder. Bileşene ait handoff aynı projedeki
+`work/handoffs/*.json` dosyasında bulunmalı, `lemo-opuscar` kaynağını,
+`rendered-video` türünü, proje modunu ve *tam aynı medyayı* göstermelidir.
+Bu kontrol Lemo'nun sahne tekniğini veya stil sadakatini otomatik test etmez.
+
+Görsel segment ve handoff dosyası da mevcut SHA256 önizleme kimliğine dahil
+edilir. Birisi kaynak dosyayı, zaman çizelgesini veya handoff'u değiştirdiğinde
+eski önizleme onayı **geçersizleşir**. Doğrulanmamış medya otomatik olarak
+kabul edilmez, hiçbir mevcut çıktı üzerine yazılmaz. `workbench.py shorts`
+ve `workbench.py edit` hızlı başlangıç yolları aynı kalır: görsel bileşenli
+kurgu için `scripts/produce.py` kullanılır.
+
 ## Mevcut abonelikteki AI ajanı için sözleşme
 
 1. Konuyu, hedef süreyi ve yerel malzemeyi incele; editorial-intake.md'yi izle.
