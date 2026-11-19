@@ -39,6 +39,11 @@ provider-neutral; no Claude dependency or mandatory paid API.
   Use `python scripts/video_tool_stack.py plan --mode MODE` as an advisory
   routing plan. The CLI never installs tools or spends credits; review the plan
   and only use optional tools when the existing editor cannot meet the need.
+- For deciding *which* requests belong to Lemo vs ordinary editing, the 99-style
+  categories, exact discovery/search/plan/handoff commands, license and
+  approval gates, read reference/lemo-opuscar-agent-workflow.md. This
+  routing contract also applies to agents launched from SKILL.md. Search is
+  keyword-only against metadata; not an AI renderer or quality rating.
 - For original **faceless** code-generated films, the optional Lemo-Opuscar
   adapter is documented in reference/lemo-opuscar.md. Run
   `python scripts/lemo_opuscar.py list` only against a user-managed local
