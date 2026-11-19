@@ -14,7 +14,7 @@ This is the concrete routing contract for an AI coding agent using Video Edit Wo
 | Inspect feasibility of a chosen Lemo style | Read local STYLE.md / prerequisites / license; compare with user brief | Agent analysis; NOT a renderer |
 | Save chosen style and next steps | lemo_opuscar.py plan (new JSON, approved: false) | Executable read-only/non-destructive adapter |
 | Render a Lemo film, make bespoke WebGL/Canvas/code visuals, camera moves, animation, narrated film | Use *upstream Lemo-Opuscar* in a separate environment following its official workflow if independently set up/authorized | **NOT integrated/executed by Workbench adapter** |
-| Register an already rendered, owned/authorized local MP4 | external_handoff.py --tool lemo-opuscar --mode faceless | Executable **metadata/review handoff only** |
+| Register an already rendered, owned/authorized local MP4 | external_handoff.py --tool lemo-opuscar --mode MODE (current Workbench mode) | Executable **metadata/review handoff only** |
 | Compose Lemo MP4 as part of Workbench's regular video timeline | Add a reviewed visual_component segment to production.json, then use produce.py preview/final approval | **Implemented native media composition**, not upstream film generation |
 | Upload to social media, buy credits, run hosted models, automatically download dependencies | Never through this adapter | **NOT implemented; forbidden by default policy** |
 
@@ -73,7 +73,7 @@ python scripts/lemo_opuscar.py doctor --json
 python scripts/lemo_opuscar.py list --json
 python scripts/lemo_opuscar.py search --query "explainer" --limit 8 --json
 python scripts/lemo_opuscar.py search --query "brand launch" --limit 8
-python scripts/lemo_opuscar.py plan --project my-videos --style neon-tubes
+python scripts/lemo_opuscar.py plan --project my-videos --style neon-tubes --mode own-footage
 ~~~
 
 Search is **simple metadata keyword matching** (name, slug, category, "uses"), not an LLM similarity search. No match does not mean the film cannot be made. If results are poor, list styles and review the upstream style index; do not blindly choose the first match. For unknown or missing local Lemo checkout, report "not installed/unknown" and suggest a Workbench-local alternative.
@@ -104,7 +104,7 @@ Have the user place an **existing** rights-cleared local MP4 inside their Workbe
 ~~~sh
 python scripts/external_handoff.py \
   --project my-videos \
-  --tool lemo-opuscar --mode faceless \
+  --tool lemo-opuscar --mode own-footage \
   --kind rendered-video \
   --asset work/external/lemo-opuscar/film.mp4 \
   --out work/handoffs/lemo-film.json \
