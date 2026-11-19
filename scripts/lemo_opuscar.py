@@ -52,6 +52,28 @@ def local_styles(root):
         })
     return records
 
+def search_styles(styles, query, limit=10):
+    """Deterministic metadata keyword matches; NOT a semantic/quality rating."""
+    if not query.strip() or not 1 <= limit <= 99:
+        raise ValueError("Provide --query text and --limit between 1 and 99")
+    terms = re.findall(r"[\w-]+", query.casefold())
+    if not terms:
+        raise ValueError("Query must contain a search term")
+    matches = []
+    for item in styles:
+        name = item["name"].casefold()
+        slug = item["slug"].casefold()
+        category = item["category"].casefold()
+        uses = " ".join(str(u) for u in item["uses"]).casefold()
+        score = sum(5 * (term in name or term in slug)
+                    + 3 * (term in category)
+                    + 1 * (term in uses) for term in terms)
+        if score:
+            matches.append((score, item))
+    matches.sort(key=lambda value: (-value[0], value[1]["slug"]))
+    return [item for _, item in matches[:limit]]
+
+
 
 def make_plan(project, library, style, filename=None):
     if not SLUG.fullmatch(style):
@@ -113,12 +135,15 @@ def make_plan(project, library, style, filename=None):
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     subs = parser.add_subparsers(dest="command", required=True)
-    for command in ("doctor", "list", "plan"):
+    for command in ("doctor", "list", "search", "plan"):
         child = subs.add_parser(command)
         child.add_argument("--library", type=Path, default=DEFAULT_LIBRARY,
                            help="Existing local Lemo-Opuscar checkout (default: ~/lemo-opuscar)")
-        if command in ("doctor", "list"):
+        if command in ("doctor", "list", "search"):
             child.add_argument("--json", action="store_true")
+        if command == "search":
+            child.add_argument("--query", required=True, help="Metadata keywords, not semantic AI search")
+            child.add_argument("--limit", type=int, default=10)
         if command == "plan":
             child.add_argument("--project", type=Path, required=True)
             child.add_argument("--style", required=True, help="A slug from 'list', e.g. neon-tubes")
@@ -145,6 +170,16 @@ def main(argv=None):
             }
             print(json.dumps(status, indent=2, ensure_ascii=False))
             return 0 if styles else 1
+        if args.command == "search":
+            results = search_styles(styles, args.query, args.limit)
+            if args.json:
+                print(json.dumps({"query": args.query, "matches": results, "match_type": "keyword-only"},
+                                 indent=2, ensure_ascii=False))
+            else:
+                for item in results:
+                    print(f"{item['slug']:27} {item['name']} ({item['category']})")
+                print(f"{len(results)} keyword matches; review upstream STYLE.md before selecting.")
+            return 0
         if args.json:
             print(json.dumps({"upstream": UPSTREAM, "styles": styles}, indent=2, ensure_ascii=False))
         else:
